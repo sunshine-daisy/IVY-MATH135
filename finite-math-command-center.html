@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camila · Finite Math Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23302a; --paper:#fbfaf4; --card:#ffffff;
+    --sage:#7c9a86; --sage-deep:#3f5a49; --sage-soft:#eaf0ea;
+    --sun:#f4c64a; --sun-soft:#fdf3d3;
+    --coral:#df7a5a; --coral-soft:#fbe7df;
+    --line:#e7e3d6; --muted:#7d857f;
+    --radius:16px; --shadow:0 1px 2px rgba(35,48,42,.05),0 8px 24px rgba(35,48,42,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+    line-height:1.5;-webkit-font-smoothing:antialiased;padding:0 16px 64px}
+  .wrap{max-width:880px;margin:0 auto}
+  h1,h2,h3,.display{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+
+  /* Header */
+  header{padding:32px 0 20px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--sage-deep);margin-bottom:8px}
+  h1{font-size:2.1rem;font-weight:800;line-height:1.05}
+  h1 .sub{display:block;font-size:1.05rem;font-weight:600;color:var(--muted);
+    letter-spacing:-.01em;margin-top:6px}
+  .today{font-size:.85rem;color:var(--muted);margin-top:10px}
+  .syncpill{display:inline-block;margin-top:12px;font-size:.74rem;font-weight:700;letter-spacing:.02em;
+    color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:99px;
+    padding:5px 12px;cursor:pointer;transition:.16s}
+  .syncpill:hover{border-color:var(--sage)}
+  .syncpill.on{color:var(--sage-deep);background:var(--sage-soft);border-color:var(--sage)}
+
+  /* Countdown chips */
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .chip{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:13px 15px;box-shadow:var(--shadow)}
+  .chip.urgent{border-color:var(--coral);background:var(--coral-soft)}
+  .chip .lbl{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .chip.urgent .lbl{color:#b14a2a}
+  .chip .big{font-family:'Bricolage Grotesque';font-size:1.55rem;font-weight:800;line-height:1.1;margin-top:3px}
+  .chip .when{font-size:.78rem;color:var(--muted);margin-top:1px}
+  .chip.urgent .when{color:#b14a2a}
+
+  /* Tabs */
+  nav.tabs{display:flex;gap:6px;margin:26px 0 22px;background:var(--sage-soft);
+    padding:5px;border-radius:13px;position:sticky;top:8px;z-index:5}
+  nav.tabs button{flex:1;border:none;background:transparent;font-family:'Inter';font-size:.85rem;
+    font-weight:600;color:var(--sage-deep);padding:9px 6px;border-radius:9px;cursor:pointer;transition:.18s}
+  nav.tabs button.active{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+
+  .panel{display:none;animation:fade .25s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  /* Week cards */
+  .week{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden}
+  .week.now{border-color:var(--sage);box-shadow:0 0 0 2px var(--sage-soft),var(--shadow)}
+  .week.exam{border-color:var(--sun)}
+  .week-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;user-select:none}
+  .week-num{font-family:'Bricolage Grotesque';font-size:.78rem;font-weight:800;letter-spacing:.05em;
+    color:#fff;background:var(--sage-deep);border-radius:8px;padding:5px 9px;white-space:nowrap}
+  .week.exam .week-num{background:#c9962b}
+  .week-title{flex:1;min-width:0}
+  .week-title .wt{font-family:'Bricolage Grotesque';font-weight:700;font-size:1.02rem}
+  .week-title .wd{font-size:.78rem;color:var(--muted)}
+  .week-prog{font-size:.75rem;font-weight:700;color:var(--sage-deep);white-space:nowrap}
+  .badge-now{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--sage-deep);background:var(--sage-soft);padding:3px 7px;border-radius:6px}
+  .week-body{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+  .week-body.open{max-height:1200px;padding:0 18px 12px}
+  .task{display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-top:1px solid var(--line)}
+  .task input{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex:none;margin-top:1px;
+    border:2px solid var(--sage);border-radius:6px;cursor:pointer;position:relative;transition:.15s}
+  .task input:checked{background:var(--sage);border-color:var(--sage)}
+  .task input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .task label{font-size:.9rem;cursor:pointer;flex:1}
+  .task.done label{color:var(--muted);text-decoration:line-through}
+  .task .tag{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    padding:2px 6px;border-radius:5px;margin-left:7px;vertical-align:middle}
+  .tag.hw{background:#e7eef6;color:#3a5a7a} .tag.qz{background:#efe7f6;color:#6a4a8a}
+  .tag.ex{background:var(--sun-soft);color:#9a6f12} .tag.lo{background:var(--sage-soft);color:var(--sage-deep)}
+  .tag.pt{background:#f6ece2;color:#9a6230}
+
+  /* Grades */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);margin-bottom:16px}
+  .gauge{text-align:center;padding:8px 0 4px}
+  .gauge .pct{font-family:'Bricolage Grotesque';font-size:3.4rem;font-weight:800;line-height:1}
+  .gauge .ltr{font-family:'Bricolage Grotesque';font-size:1.3rem;font-weight:700;margin-top:2px}
+  .gauge .cap{font-size:.8rem;color:var(--muted);margin-top:6px}
+  .grow{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line)}
+  .grow:first-of-type{border-top:none}
+  .grow .gn{flex:1}
+  .grow .gn .nm{font-weight:600;font-size:.92rem}
+  .grow .gn .wt{font-size:.74rem;color:var(--muted)}
+  .grow input[type=number]{width:78px;text-align:right;font-family:'Inter';font-size:.95rem;font-weight:600;
+    padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+  .grow input[type=number]:focus{outline:none;border-color:var(--sage)}
+  .grow .unit{color:var(--muted);font-size:.85rem;width:14px}
+  .barwrap{height:7px;background:var(--sage-soft);border-radius:99px;overflow:hidden;margin-top:14px}
+  .barwrap i{display:block;height:100%;background:var(--sage);border-radius:99px;transition:.4s}
+  .note{font-size:.82rem;color:var(--muted);margin-top:6px}
+  .exam-flag{background:var(--sun-soft);border:1px solid var(--sun);border-radius:12px;padding:12px 14px;
+    font-size:.85rem;margin-top:4px}
+  .exam-flag b{color:#9a6f12}
+
+  /* Game plan */
+  .gp{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;
+    box-shadow:var(--shadow);margin-bottom:14px}
+  .gp h3{font-size:1.05rem;display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .gp h3 .dot{width:9px;height:9px;border-radius:99px;flex:none}
+  .gp p{font-size:.9rem;color:#404a44;margin-bottom:8px}
+  .gp p:last-child{margin-bottom:0}
+  .gp ul{margin:6px 0 0 4px;padding-left:18px}
+  .gp li{font-size:.88rem;color:#404a44;margin-bottom:5px}
+  .gp .big60{font-family:'Bricolage Grotesque';font-weight:800;color:var(--sage-deep)}
+
+  .reset{display:block;margin:8px auto 0;background:none;border:none;color:var(--muted);
+    font-size:.78rem;text-decoration:underline;cursor:pointer}
+  footer{text-align:center;font-size:.74rem;color:var(--muted);margin-top:30px}
+  @media(max-width:560px){h1{font-size:1.7rem}.gauge .pct{font-size:2.8rem}.chip{flex-basis:46%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Ivy Tech · MATH 135 · Section 1GP · Summer 2026</div>
+    <h1>Finite Math Command Center<span class="sub">Camila's 8-week game plan · Jun 8 – Aug 2</span></h1>
+    <div class="today" id="today"></div>
+    <span class="syncpill" id="syncPill" title="Click to change the sync code">⟳ Local only</span>
+    <div class="chips" id="chips"></div>
+  </header>
+
+  <nav class="tabs">
+    <button class="active" data-tab="plan">Weekly Plan</button>
+    <button data-tab="grades">Grade Tracker</button>
+    <button data-tab="gameplan">Game Plan</button>
+  </nav>
+
+  <!-- PLAN -->
+  <section class="panel active" id="plan"></section>
+
+  <!-- GRADES -->
+  <section class="panel" id="grades">
+    <div class="card">
+      <div class="gauge">
+        <div class="pct" id="gPct">—</div>
+        <div class="ltr" id="gLtr"></div>
+        <div class="cap">Projected course grade from scores entered below</div>
+      </div>
+      <div class="barwrap"><i id="gBar" style="width:0%"></i></div>
+    </div>
+    <div class="card" id="gradeRows"></div>
+    <div class="exam-flag">
+      <b>Why the two exams decide everything:</b> the midterm and final are worth 30% each — 60% combined.
+      The other four categories together are 40%, and they're the easy-to-bank points: homework can be redone
+      for full credit before each deadline, and quizzes give a 2nd attempt if homework is ≥80%. Lock those in,
+      then it's all about exam prep.
+    </div>
+    <button class="reset" id="resetGrades">Clear grade entries</button>
+  </section>
+
+  <!-- GAME PLAN -->
+  <section class="panel" id="gameplan">
+    <div class="gp">
+      <h3><span class="dot" style="background:var(--coral)"></span>First, don't get dropped</h3>
+      <p><b>Camila must complete a graded assignment by Sun, June 15 (11:59 PM ET)</b> or Ivy Tech auto-drops
+      her for non-attendance — this is also the 100% refund deadline. The first homework and quizzes are due
+      June 14, so finishing even one graded item this week locks her in. Ungraded intro emails don't count.</p>
+    </div>
+    <div class="gp">
+      <h3><span class="dot" style="background:var(--sun)"></span>The 60% lives in the proctored exams</h3>
+      <p>Midterm (due <b>Jul 5</b>) and Final (due <b>Aug 2</b>) are <span class="big60">60% of the grade</span>
+      combined. Both are proctored, <b>one attempt</b>, 20 questions, 2 hours, with a provided formula sheet.</p>
+      <ul>
+        <li>Schedule each exam at a proctor site <b>well in advance</b> — don't wait for exam week.</li>
+        <li>Save scratch paper and upload it right after; showing steps earns partial credit.</li>
+        <li>Take the required Prep Test early, review it, then retake it (5 attempts allowed).</li>
+      </ul>
+    </div>
+    <div class="gp">
+      <h3><span class="dot" style="background:var(--sage)"></span>Get the right calculator now</h3>
+      <p>A <b>TI-83 or TI-84 Plus</b> is recommended. No phones, no watches, no CAS calculators (TI-89/N-Spire),
+      and <b>Desmos and Excel are banned on both exams</b>. Buy/borrow it early so Camila practices on the exact
+      device she'll test with.</p>
+    </div>
+    <div class="gp">
+      <h3><span class="dot" style="background:var(--sage-deep)"></span>Bank the easy 40%</h3>
+      <ul>
+        <li><b>Homework (15%):</b> redo questions unlimited times before the deadline for full credit. Aim 100%.</li>
+        <li><b>Quizzes (15%):</b> score ≥80% on the matching homework to unlock a 2nd quiz attempt; highest counts.</li>
+        <li><b>Discussions / check-ins / scans (5%):</b> no late discussions accepted — do them the week they open.</li>
+        <li><b>Late penalty:</b> 4%/day unless arranged with the instructor <i>before</i> the due date.</li>
+      </ul>
+    </div>
+    <div class="gp">
+      <h3><span class="dot" style="background:var(--coral)"></span>The safety valve</h3>
+      <p>Last day to withdraw with a "W" instead of a grade is <b>July 19</b> — right after the midterm comes back.
+      Worth knowing the date exists, though the plan is to never need it.</p>
+    </div>
+    <div class="gp">
+      <h3><span class="dot" style="background:var(--sage)"></span>Who to contact</h3>
+      <p>Instructor: <b>Joshua Luckhaupt</b> · jluckhaupt@ivytech.edu (replies within 1 business day, via IvyLearn Inbox).
+      If he goes 48h without responding or grading is late, escalate to <b>Debbie Youse</b> (Math Faculty Lead) · dyouse@ivytech.edu · 574-381-9497.</p>
+    </div>
+  </section>
+
+  <footer>Built for Camila · scores &amp; check-offs save automatically on this device</footer>
+</div>
+
+<script>
+/* ---------- Data: every assignment, by week ---------- */
+const WEEKS = [
+  {n:"Week 1", due:"2026-06-14", title:"Linear Equations + Intro to Matrices", topics:"§1.1–1.2, 4.1–4.2", tasks:[
+    {t:"Document Scan: First Homework (upload practice)", k:"lo"},
+    {t:"Orientation to MyLab Math", k:"lo"},
+    {t:"Homework 1A (1.1–1.2)", k:"hw"},
+    {t:"Quiz 1A (1.1–1.2)", k:"qz"},
+    {t:"Homework 1B (4.1–4.2)", k:"hw"},
+    {t:"Quiz 1B (4.1–4.2)", k:"qz"},
+    {t:"Check-In Quiz: The Syllabus", k:"lo"},
+    {t:"Discussion: Introductions", k:"lo"},
+    {t:"Discussion: Successful Study Habits", k:"lo"},
+  ]},
+  {n:"Week 2", due:"2026-06-21", title:"Matrices + Gauss-Jordan", topics:"§4.3–4.6", tasks:[
+    {t:"Homework 2A (4.3–4.4)", k:"hw"},
+    {t:"Quiz 2A (4.3–4.4)", k:"qz"},
+    {t:"Homework 2B (4.5–4.6)", k:"hw"},
+    {t:"Quiz 2B (4.5–4.6)", k:"qz"},
+    {t:"Check-In Quiz: Scheduling Tests", k:"lo"},
+    {t:"Document Scan: Testing Appointments", k:"lo"},
+    {t:"Check-In Quiz: Reviewing Assignments (due Mon Jun 22)", k:"lo"},
+  ]},
+  {n:"Week 3", due:"2026-06-28", title:"Linear Programming — Graphical", topics:"§5.1–5.3", tasks:[
+    {t:"Homework 3A (5.1–5.2)", k:"hw"},
+    {t:"Quiz 3A (5.1–5.2)", k:"qz"},
+    {t:"Homework 3B (5.2–5.3)", k:"hw"},
+    {t:"Quiz 3B (5.2–5.3)", k:"qz"},
+    {t:"Discussion: Test Preparation", k:"lo"},
+  ]},
+  {n:"Week 4", due:"2026-07-05", title:"MIDTERM WEEK", topics:"Covers §1.1–1.2, 4.1–4.6, 5.1–5.3", exam:true, tasks:[
+    {t:"Midterm Review Homework", k:"hw"},
+    {t:"Required Prep Test for Midterm (5 attempts)", k:"pt"},
+    {t:"Document Scan: Midterm Work Submission", k:"lo"},
+    {t:"★ MIDTERM EXAM — proctored, 30% of grade", k:"ex"},
+  ]},
+  {n:"Week 5", due:"2026-07-12", title:"Sets, Counting + Probability begins", topics:"§6.1–6.2, 7.2–7.3", tasks:[
+    {t:"Homework 5A (6.1–6.2)", k:"hw"},
+    {t:"Quiz 5A (6.1–6.2)", k:"qz"},
+    {t:"Homework 5B (7.2–7.3)", k:"hw"},
+    {t:"Quiz 5B (7.2–7.3)", k:"qz"},
+    {t:"Check-In Quiz: Grades, Habits, Thoughts", k:"lo"},
+  ]},
+  {n:"Week 6", due:"2026-07-19", title:"Counting + Probability", topics:"§7.4, 8.1–8.3", tasks:[
+    {t:"Homework 6A (7.4, 8.1)", k:"hw"},
+    {t:"Quiz 6A (7.4, 8.1)", k:"qz"},
+    {t:"Homework 6B (8.2–8.3)", k:"hw"},
+    {t:"Quiz 6B (8.2–8.3)", k:"qz"},
+    {t:"⚑ Last day to withdraw with a W is today", k:"lo"},
+  ]},
+  {n:"Week 7", due:"2026-07-26", title:"Expected Value + Markov Chains", topics:"§8.5, 9.1–9.2, 10.4", tasks:[
+    {t:"Homework 7A (8.5, 9.1)", k:"hw"},
+    {t:"Quiz 7A (8.5, 9.1)", k:"qz"},
+    {t:"Homework 7B (9.2, 10.4, 8.5)", k:"hw"},
+    {t:"Quiz 7B (9.2, 10.4, 8.5)", k:"qz"},
+  ]},
+  {n:"Week 8", due:"2026-08-02", title:"FINAL WEEK", topics:"Covers §6.1–2, 7.2–4, 8.1–3, 8.5, 9.1–2, 10.4", exam:true, tasks:[
+    {t:"Review Homework for Final", k:"hw"},
+    {t:"Required Prep Test for Final (5 attempts)", k:"pt"},
+    {t:"Document Scan: Final Work Submission", k:"lo"},
+    {t:"★ FINAL EXAM — proctored, 30% of grade", k:"ex"},
+  ]},
+];
+
+/* ---------- Key dates ---------- */
+const KEY = [
+  {lbl:"Don't-get-dropped", date:"2026-06-15", urgent:true},
+  {lbl:"Midterm due", date:"2026-07-05"},
+  {lbl:"Final due", date:"2026-08-02"},
+];
+
+/* ---------- Grade categories (weights from syllabus) ---------- */
+const CATS = [
+  {id:"misc", nm:"Discussions, Check-Ins & Scans", wt:5, sub:"11 items"},
+  {id:"hw",   nm:"Homework", wt:15, sub:"15 items · redoable"},
+  {id:"qz",   nm:"Quizzes", wt:15, sub:"12 items · 2nd attempt if HW ≥80%"},
+  {id:"pt",   nm:"Prep Tests", wt:5, sub:"2 items · 5 attempts each"},
+  {id:"mid",  nm:"Midterm Exam", wt:30, sub:"proctored · 1 attempt", exam:true},
+  {id:"fin",  nm:"Final Exam", wt:30, sub:"proctored · 1 attempt", exam:true},
+];
+
+const KEYP = "cam_fm_checks", KEYG = "cam_fm_grades";
+const checks = JSON.parse(localStorage.getItem(KEYP) || "{}");
+const grades = JSON.parse(localStorage.getItem(KEYG) || "{}");
+
+/* ============ CLOUD SYNC ============ */
+/* ▼▼ Paste your Apps Script Web App URL (ends in /exec) between the quotes ▼▼ */
+const SYNC_URL = "https://script.google.com/macros/s/AKfycbyn-DBk5f7z8w4maCyYQdXjBx0N9paSLatN-8t5kccP9ikArylSD0XuZKUBR8BKoQnUeg/exec";
+/* ▲▲ ----------------------------------------------------------------- ▲▲ */
+const APP_ID = "cc";
+let CODE = (localStorage.getItem("fm_code") || "CAM").toUpperCase();
+let saveTimer = null;
+
+function syncEnabled(){ return SYNC_URL && SYNC_URL.indexOf("PASTE_") === -1; }
+function setStatus(s){
+  const p = document.getElementById("syncPill"); if(!p) return;
+  if(!syncEnabled()){ p.textContent = "⟳ Local only · tap to learn about sync"; p.classList.remove("on"); return; }
+  const m = {loading:"⟳ Syncing…", saving:"⟳ Saving…", synced:"✓ Synced · "+CODE, saved:"✓ Synced · "+CODE, error:"⚠ Sync error · "+CODE};
+  p.textContent = m[s] || ("✓ Synced · "+CODE);
+  p.classList.toggle("on", s==="synced" || s==="saved");
+}
+async function cloudLoad(){
+  if(!syncEnabled()) return null;
+  try{
+    const r = await fetch(`${SYNC_URL}?action=load&code=${encodeURIComponent(CODE)}&app=${APP_ID}&t=${Date.now()}`);
+    const j = await r.json();
+    return (j && j.ok) ? j.data : null;
+  }catch(e){ return null; }
+}
+function cloudSave(){
+  if(!syncEnabled()) return;
+  clearTimeout(saveTimer);
+  setStatus("saving");
+  saveTimer = setTimeout(()=>{
+    fetch(SYNC_URL, {method:"POST", body: JSON.stringify({code:CODE, app:APP_ID, data:{checks, grades}})})
+      .then(()=>setStatus("saved")).catch(()=>setStatus("error"));
+  }, 700);
+}
+function applyCloudState(data){
+  if(!data) return;
+  if(data.checks){
+    for(const k in checks) delete checks[k];
+    Object.assign(checks, data.checks);
+    localStorage.setItem(KEYP, JSON.stringify(checks));
+    WEEKS.forEach((w,wi)=>{
+      let done=0;
+      w.tasks.forEach((tk,ti)=>{
+        const id=wi+"_"+ti, on=!!checks[id], cb=document.getElementById("t"+id);
+        if(cb){ cb.checked=on; cb.closest(".task").classList.toggle("done",on); }
+        if(on) done++;
+      });
+      const pr=document.querySelector(`[data-prog="${wi}"]`); if(pr) pr.textContent=done+"/"+w.tasks.length;
+    });
+  }
+  if(data.grades){
+    for(const k in grades) delete grades[k];
+    Object.assign(grades, data.grades);
+    localStorage.setItem(KEYG, JSON.stringify(grades));
+    document.querySelectorAll('#gradeRows input').forEach(i=>{ const v=grades[i.dataset.cat]; i.value=(v==null?"":v); });
+    recalc();
+  }
+}
+async function cloudInit(){
+  if(!syncEnabled()){ setStatus("local"); return; }
+  setStatus("loading");
+  applyCloudState(await cloudLoad());
+  setStatus("synced");
+}
+
+/* ---------- Date helpers ---------- */
+function today(){const d=new Date();d.setHours(0,0,0,0);return d;}
+function parse(s){const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);}
+function daysUntil(s){return Math.round((parse(s)-today())/864e5);}
+function fmt(s){return parse(s).toLocaleDateString("en-US",{month:"short",day:"numeric"});}
+
+/* ---------- Header ---------- */
+document.getElementById("today").textContent =
+  "Today is " + today().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+
+const chipsEl = document.getElementById("chips");
+KEY.forEach(k=>{
+  const n = daysUntil(k.date);
+  const txt = n<0 ? "passed" : n===0 ? "TODAY" : n===1 ? "1 day" : n+" days";
+  const u = k.urgent && n>=0 && n<=7;
+  chipsEl.insertAdjacentHTML("beforeend",
+    `<div class="chip ${u?'urgent':''}"><div class="lbl">${k.lbl}</div>
+     <div class="big">${txt}</div><div class="when">${fmt(k.date)} · 11:59 PM ET</div></div>`);
+});
+
+/* ---------- Determine current week ---------- */
+function currentWeekIdx(){
+  const t=today();
+  for(let i=0;i<WEEKS.length;i++){if(t<=parse(WEEKS[i].due))return i;}
+  return WEEKS.length-1;
+}
+const nowWeek = currentWeekIdx();
+
+/* ---------- Build plan ---------- */
+const planEl = document.getElementById("plan");
+WEEKS.forEach((w,wi)=>{
+  const total=w.tasks.length;
+  const done=w.tasks.filter((_,ti)=>checks[wi+"_"+ti]).length;
+  const isNow = wi===nowWeek;
+  const div=document.createElement("div");
+  div.className="week"+(isNow?" now":"")+(w.exam?" exam":"");
+  div.innerHTML=`
+    <div class="week-head">
+      <span class="week-num">${w.n.replace("Week ","WK ")}</span>
+      <div class="week-title">
+        <div class="wt">${w.title} ${isNow?'<span class="badge-now">This week</span>':''}</div>
+        <div class="wd">Due ${fmt(w.due)} · ${w.topics}</div>
+      </div>
+      <span class="week-prog" data-prog="${wi}">${done}/${total}</span>
+    </div>
+    <div class="week-body${isNow?' open':''}" data-body="${wi}">
+      ${w.tasks.map((tk,ti)=>{
+        const ck=checks[wi+"_"+ti];
+        return `<div class="task${ck?' done':''}" data-task="${wi}_${ti}">
+          <input type="checkbox" ${ck?'checked':''} id="t${wi}_${ti}">
+          <label for="t${wi}_${ti}">${tk.t}<span class="tag ${tk.k}">${
+            {hw:'HW',qz:'Quiz',ex:'Exam',lo:'Logistics',pt:'Prep'}[tk.k]}</span></label>
+        </div>`;
+      }).join("")}
+    </div>`;
+  planEl.appendChild(div);
+
+  div.querySelector(".week-head").addEventListener("click",()=>{
+    div.querySelector(".week-body").classList.toggle("open");
+  });
+});
+
+planEl.addEventListener("change",e=>{
+  if(e.target.type!=="checkbox")return;
+  const row=e.target.closest(".task"), id=row.dataset.task;
+  checks[id]=e.target.checked;
+  localStorage.setItem(KEYP,JSON.stringify(checks));
+  cloudSave();
+  row.classList.toggle("done",e.target.checked);
+  const wi=id.split("_")[0];
+  const w=WEEKS[wi], done=w.tasks.filter((_,ti)=>checks[wi+"_"+ti]).length;
+  document.querySelector(`[data-prog="${wi}"]`).textContent=done+"/"+w.tasks.length;
+});
+
+/* ---------- Grade tracker ---------- */
+const gradeRows=document.getElementById("gradeRows");
+CATS.forEach(c=>{
+  const v = grades[c.id] ?? "";
+  gradeRows.insertAdjacentHTML("beforeend",
+    `<div class="grow">
+      <div class="gn"><div class="nm">${c.nm}${c.exam?' ★':''}</div><div class="wt">${c.wt}% of grade · ${c.sub}</div></div>
+      <input type="number" min="0" max="100" step="1" placeholder="—" value="${v}" data-cat="${c.id}">
+      <span class="unit">%</span>
+    </div>`);
+});
+
+function letter(p){return p>=90?"A":p>=80?"B":p>=70?"C":p>=60?"D":"F";}
+function recalc(){
+  let earned=0, weight=0;
+  CATS.forEach(c=>{
+    const v=grades[c.id];
+    if(v!==undefined && v!=="" && !isNaN(v)){earned+=(+v)*c.wt; weight+=c.wt;}
+  });
+  const pctEl=document.getElementById("gPct"), ltrEl=document.getElementById("gLtr"), bar=document.getElementById("gBar");
+  if(weight===0){pctEl.textContent="—";ltrEl.textContent="";bar.style.width="0%";return;}
+  const p=earned/weight;
+  pctEl.textContent=p.toFixed(1)+"%";
+  ltrEl.textContent=letter(p)+" · based on "+weight+"% of the grade entered";
+  bar.style.width=Math.min(100,p)+"%";
+  pctEl.style.color = p>=80?"var(--sage-deep)":p>=70?"#c9962b":"var(--coral)";
+}
+gradeRows.addEventListener("input",e=>{
+  if(e.target.type!=="number")return;
+  const id=e.target.dataset.cat, val=e.target.value;
+  if(val==="")delete grades[id]; else grades[id]=val;
+  localStorage.setItem(KEYG,JSON.stringify(grades));
+  cloudSave();
+  recalc();
+});
+recalc();
+document.getElementById("resetGrades").addEventListener("click",()=>{
+  if(!confirm("Clear all grade entries?"))return;
+  Object.keys(grades).forEach(k=>delete grades[k]);
+  localStorage.setItem(KEYG,"{}");
+  gradeRows.querySelectorAll("input").forEach(i=>i.value="");
+  cloudSave();
+  recalc();
+});
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll("nav.tabs button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("nav.tabs button").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+    document.getElementById(b.dataset.tab).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+/* ---------- Sync pill: change code / show setup ---------- */
+document.getElementById("syncPill").addEventListener("click",()=>{
+  if(!syncEnabled()){
+    alert("Cloud sync isn't set up yet.\n\nDeploy the finite-math-sync.gs file as a Google Apps Script Web App, then paste its /exec URL into the SYNC_URL line near the top of this file's script. Progress will then sync across devices using the access code.");
+    return;
+  }
+  const c = prompt("Sync code (progress is shared across devices with the same code):", CODE);
+  if(c && c.trim()){ CODE = c.trim().toUpperCase(); localStorage.setItem("fm_code", CODE); cloudInit(); }
+});
+
+cloudInit();
+</script>
+</body>
+</html>

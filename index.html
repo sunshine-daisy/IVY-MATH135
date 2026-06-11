@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finite Math · Home Base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23302a; --paper:#fbfaf4; --card:#ffffff;
+    --sage:#7c9a86; --sage-deep:#3f5a49; --sage-soft:#eaf0ea;
+    --sun:#f4c64a; --sun-soft:#fdf3d3; --sun-deep:#9a6f12;
+    --coral:#df7a5a; --coral-soft:#fbe7df; --coral-deep:#b14a2a;
+    --line:#e7e3d6; --muted:#6f776f;
+    --radius:18px; --shadow:0 1px 2px rgba(35,48,42,.05),0 12px 30px rgba(35,48,42,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+    line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 18px 70px;
+    background-image:radial-gradient(circle at 12% 0%, #fdf6e3 0%, transparent 42%),radial-gradient(circle at 92% 8%, #edf2ec 0%, transparent 40%)}
+  .wrap{max-width:740px;margin:0 auto}
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.025em;line-height:1.08}
+
+  header{padding:46px 0 6px;text-align:center}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:12px}
+  h1{font-size:2.6rem;font-weight:800}
+  .tagline{font-size:1.05rem;font-weight:500;color:var(--muted);margin-top:10px}
+
+  /* week tracker */
+  .tracker{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 24px;box-shadow:var(--shadow);margin:30px 0 8px}
+  .tracker .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .tracker .wk{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.25rem}
+  .tracker .ends{font-size:.8rem;color:var(--muted);font-weight:600}
+  .segs{display:flex;gap:5px}
+  .seg{flex:1;height:9px;border-radius:99px;background:var(--sage-soft)}
+  .seg.done{background:var(--sage)}
+  .seg.now{background:var(--sun);box-shadow:0 0 0 3px var(--sun-soft)}
+  .nextline{margin-top:16px;font-size:.92rem;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .nextline .dot{width:9px;height:9px;border-radius:99px;background:var(--sage);flex:none}
+  .nextline.crit .dot{background:var(--coral)}
+  .nextline b{font-weight:700}
+  .nextline .cd{font-family:'Bricolage Grotesque';font-weight:800}
+  .nextline.crit .cd{color:var(--coral-deep)}
+
+  /* module cards */
+  .modules{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+  .mod{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);text-decoration:none;color:inherit;
+    position:relative;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    opacity:0;transform:translateY(10px);animation:rise .5s ease forwards}
+  .mod:nth-child(1){animation-delay:.05s} .mod:nth-child(2){animation-delay:.13s} .mod:nth-child(3){animation-delay:.21s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .mod::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+  .mod.sage::before{background:var(--sage)} .mod.sun::before{background:var(--sun)} .mod.coral::before{background:var(--coral)}
+  .mod:hover{transform:translateY(-3px);box-shadow:0 1px 2px rgba(35,48,42,.05),0 18px 40px rgba(35,48,42,.11)}
+  .mod.sage:hover{border-color:var(--sage)} .mod.sun:hover{border-color:var(--sun)} .mod.coral:hover{border-color:var(--coral)}
+  .ic{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center}
+  .mod.sage .ic{background:var(--sage-soft);color:var(--sage-deep)}
+  .mod.sun .ic{background:var(--sun-soft);color:var(--sun-deep)}
+  .mod.coral .ic{background:var(--coral-soft);color:var(--coral-deep)}
+  .ic svg{width:24px;height:24px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+  .mtext{flex:1;min-width:0}
+  .mtext .kicker{font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .mtext .mt{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.18rem;display:flex;align-items:center;gap:8px}
+  .mtext .md{font-size:.88rem;color:var(--muted);margin-top:3px}
+  .forwho{font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--coral-deep);
+    background:var(--coral-soft);padding:2px 7px;border-radius:6px}
+  .go{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.5rem;color:var(--muted);flex:none;transition:transform .18s,color .18s}
+  .mod:hover .go{transform:translateX(4px)}
+  .mod.sage:hover .go{color:var(--sage-deep)} .mod.sun:hover .go{color:var(--sun-deep)} .mod.coral:hover .go{color:var(--coral-deep)}
+
+  .tip{margin-top:26px;background:var(--sage-soft);border-radius:14px;padding:14px 18px;font-size:.86rem;color:var(--sage-deep)}
+  .tip b{font-weight:700}
+  footer{text-align:center;font-size:.74rem;color:var(--muted);margin-top:26px}
+
+  @media(prefers-reduced-motion:reduce){.mod{animation:none;opacity:1;transform:none}}
+  @media(max-width:560px){h1{font-size:2.05rem}.mod{padding:17px 18px;gap:14px}.ic{width:40px;height:40px}.go{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Ivy Tech · MATH 135 · Summer 2026</div>
+    <h1>Finite Math Home Base</h1>
+    <div class="tagline">Everything for Camila's 8-week course, in one place</div>
+  </header>
+
+  <div class="tracker">
+    <div class="row">
+      <span class="wk" id="wk">—</span>
+      <span class="ends" id="ends"></span>
+    </div>
+    <div class="segs" id="segs"></div>
+    <div class="nextline" id="nextline"></div>
+  </div>
+
+  <nav class="modules">
+    <a class="mod sage" href="finite-math-command-center.html">
+      <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8.5 14.5l2 2 4-4"/></svg></span>
+      <span class="mtext">
+        <span class="kicker">Plan &amp; Track</span>
+        <span class="mt">Command Center</span>
+        <span class="md">Week-by-week plan, deadline checklist, and a live grade tracker.</span>
+      </span>
+      <span class="go">→</span>
+    </a>
+
+    <a class="mod sun" href="finite-math-practice.html">
+      <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="0.6" fill="currentColor" stroke="none"/></svg></span>
+      <span class="mtext">
+        <span class="kicker">Practice</span>
+        <span class="mt">Practice Studio</span>
+        <span class="md">99 problems across all 8 units, each with a worked solution.</span>
+      </span>
+      <span class="go">→</span>
+    </a>
+
+    <a class="mod coral" href="finite-math-instructor-guide.html">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v17H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h12"/><path d="M9 7h6M9 11h6"/></svg></span>
+      <span class="mtext">
+        <span class="kicker">Reference</span>
+        <span class="mt">Instructor Guide <span class="forwho">For Lilian</span></span>
+        <span class="md">Topic refresher — foundations, methods, and teaching notes.</span>
+      </span>
+      <span class="go">→</span>
+    </a>
+  </nav>
+
+  <div class="tip">
+    <b>Tip:</b> set the same sync code (default <b>CAM</b>) in the Command Center and Practice Studio, and Camila's progress follows her across phone and laptop.
+  </div>
+
+  <footer>Ivy Tech MATH 135 · June 8 – August 2, 2026</footer>
+</div>
+
+<script>
+const WEEK_DUES = ["2026-06-14","2026-06-21","2026-06-28","2026-07-05","2026-07-12","2026-07-19","2026-07-26","2026-08-02"];
+const MILESTONES = [
+  {d:"2026-06-14", t:"Week 1 assignments due"},
+  {d:"2026-06-15", t:"Don't-get-dropped deadline", crit:true},
+  {d:"2026-06-21", t:"Week 2 assignments due"},
+  {d:"2026-06-28", t:"Week 3 assignments due"},
+  {d:"2026-07-05", t:"Midterm exam due", crit:true},
+  {d:"2026-07-12", t:"Week 5 assignments due"},
+  {d:"2026-07-19", t:"Week 6 due · last day to withdraw"},
+  {d:"2026-07-26", t:"Week 7 assignments due"},
+  {d:"2026-08-02", t:"Final exam due", crit:true},
+];
+
+function today(){const d=new Date();d.setHours(0,0,0,0);return d;}
+function parse(s){const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);}
+function daysUntil(s){return Math.round((parse(s)-today())/864e5);}
+function fmt(s){return parse(s).toLocaleDateString("en-US",{month:"short",day:"numeric"});}
+
+/* current week: first due-date not yet passed */
+const t = today();
+let cur = WEEK_DUES.findIndex(d => parse(d) >= t);
+const finished = cur === -1;
+if(finished) cur = WEEK_DUES.length; // all done
+
+const wkEl = document.getElementById("wk"), endsEl = document.getElementById("ends");
+if(finished){ wkEl.textContent = "Course complete 🎉"; endsEl.textContent = "Ended Aug 2"; }
+else { wkEl.textContent = "Week " + (cur+1) + " of 8"; endsEl.textContent = "Final due Aug 2"; }
+
+/* segments */
+const segs = document.getElementById("segs");
+WEEK_DUES.forEach((d,i)=>{
+  const cls = finished ? "done" : (i < cur ? "done" : i === cur ? "now" : "");
+  segs.insertAdjacentHTML("beforeend", `<span class="seg ${cls}"></span>`);
+});
+
+/* next milestone */
+const next = MILESTONES.find(m => parse(m.d) >= t);
+const nl = document.getElementById("nextline");
+if(!next){
+  nl.innerHTML = `<span class="dot"></span><span>All deadlines have passed — nicely done.</span>`;
+} else {
+  const n = daysUntil(next.d);
+  const cd = n===0 ? "Today" : n===1 ? "Tomorrow" : "In " + n + " days";
+  if(next.crit) nl.classList.add("crit");
+  nl.innerHTML = `<span class="dot"></span><span>Next up: <b>${next.t}</b> — <span class="cd">${cd}</span> · ${fmt(next.d)}</span>`;
+}
+</script>
+</body>
+</html>

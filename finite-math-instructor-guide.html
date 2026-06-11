@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finite Math · Instructor Refresher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23302a; --paper:#fbfaf4; --card:#ffffff;
+    --sage:#7c9a86; --sage-deep:#3f5a49; --sage-soft:#eaf0ea;
+    --sun:#f4c64a; --sun-soft:#fdf3d3;
+    --coral:#df7a5a; --coral-soft:#fbe7df;
+    --line:#e7e3d6; --muted:#6f776f;
+    --radius:16px; --shadow:0 1px 2px rgba(35,48,42,.05),0 10px 28px rgba(35,48,42,.06);
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+    line-height:1.62;-webkit-font-smoothing:antialiased;padding:0 18px 80px}
+  .wrap{max-width:760px;margin:0 auto}
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;line-height:1.12}
+
+  header{padding:38px 0 8px}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:10px}
+  h1{font-size:2.2rem;font-weight:800}
+  h1 .sub{display:block;font-size:1.05rem;font-weight:600;color:var(--muted);margin-top:8px;letter-spacing:-.01em}
+  .lede{font-size:1.02rem;color:#3a443d;margin:18px 0 4px}
+
+  /* TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:24px 0 8px;box-shadow:var(--shadow)}
+  .toc .tl{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .toc ol{list-style:none;counter-reset:t;display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
+  .toc li{counter-increment:t;font-size:.9rem}
+  .toc li a{color:var(--ink);text-decoration:none;display:flex;gap:9px;align-items:baseline}
+  .toc li a:hover{color:var(--sage-deep)}
+  .toc li a::before{content:counter(t);font-family:'Bricolage Grotesque';font-weight:800;color:var(--sage);font-size:.82rem;min-width:14px}
+  .toc li .ex{color:var(--sun);font-weight:800}
+
+  /* Sections */
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 22px;
+    margin:16px 0;box-shadow:var(--shadow);scroll-margin-top:14px}
+  .secnum{font-family:'Bricolage Grotesque';font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--sage);text-transform:uppercase}
+  h2{font-size:1.45rem;font-weight:800;margin:3px 0 2px}
+  .secmap{font-size:.82rem;color:var(--muted);margin-bottom:16px}
+  .exam-dot{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+    background:var(--sun-soft);color:#9a6f12;padding:3px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+  h3{font-size:.94rem;font-weight:800;color:var(--sage-deep);text-transform:uppercase;letter-spacing:.05em;margin:20px 0 8px}
+  p{margin-bottom:11px}
+  ul,ol.steps{margin:4px 0 12px;padding-left:22px}
+  li{margin-bottom:6px}
+  b,strong{font-weight:700}
+  .m{font-family:var(--mono);background:var(--sage-soft);padding:1px 6px;border-radius:5px;font-size:.9em;font-weight:600}
+
+  .formula{background:var(--sage-soft);border-radius:12px;padding:13px 16px;margin:10px 0 14px;font-family:var(--mono);font-size:.95rem;font-weight:600;color:var(--sage-deep);overflow-x:auto}
+
+  .example{border-left:3px solid var(--sage);background:#fcfdfb;border-radius:0 12px 12px 0;padding:14px 18px;margin:12px 0}
+  .example .lbl{font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:8px}
+  .teach{border-left:3px solid var(--sun);background:#fffdf6;border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0 2px}
+  .teach .lbl{font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#9a6f12;margin-bottom:8px}
+  .teach p:last-child,.example p:last-child{margin-bottom:0}
+  .found{background:#f3f2ec;border:1px dashed #d8d3c4;border-radius:12px;padding:12px 16px;margin:0 0 14px}
+  .found .lbl{font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .found ul{margin:0;padding-left:18px}
+  .found li{margin-bottom:4px;font-size:.88rem;color:#3a443d}
+  .found li:last-child{margin-bottom:0}
+
+  /* math tables */
+  table.aug,table.tab{border-collapse:collapse;font-family:var(--mono);font-size:.86rem;margin:10px 0;display:block;overflow-x:auto;white-space:nowrap}
+  table.aug td,table.tab td,table.tab th{padding:5px 12px;text-align:right}
+  table.tab th{font-weight:700;color:var(--sage-deep);border-bottom:1.5px solid var(--line);text-align:right}
+  table.aug{border-left:2.5px solid var(--ink);border-right:2.5px solid var(--ink);border-radius:4px}
+  table.aug td.bar{border-left:1.5px solid var(--muted)}
+  table.tab tr.obj td{border-top:1.5px solid var(--line);color:var(--coral);font-weight:700}
+  table.tab td.piv{background:var(--sun-soft);font-weight:800;border-radius:4px}
+  .arrow{color:var(--muted);font-weight:600;margin:0 6px}
+
+  .mtx{display:inline-grid;gap:2px 16px;padding:4px 10px;margin:0 3px;vertical-align:middle;position:relative;font-family:var(--mono);font-size:.88em;font-weight:600;justify-items:end}
+  .mtx::before,.mtx::after{content:"";position:absolute;top:2px;bottom:2px;width:6px;border:2px solid var(--ink)}
+  .mtx::before{left:0;border-right:none;border-radius:3px 0 0 3px}
+  .mtx::after{right:0;border-left:none;border-radius:0 3px 3px 0}
+
+  footer{text-align:center;font-size:.76rem;color:var(--muted);margin-top:34px;line-height:1.7}
+  a.top{display:block;text-align:right;font-size:.74rem;color:var(--sage);text-decoration:none;margin-top:10px}
+  @media(max-width:560px){h1{font-size:1.8rem}.toc ol{grid-template-columns:1fr}section{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Ivy Tech MATH 135 · Instructor Refresher</div>
+    <h1>Finite Math, for the person teaching it<span class="sub">A fast re-orientation for an engineer who's done all this before</span></h1>
+    <p class="lede">You know the underlying math. What's worth refreshing is the <b>course-specific procedure</b> for each topic — and the fact that <b>Desmos and Excel are banned on both exams</b>, so everything here is done <b>by hand</b>. That's the real skill being graded, and the thing to coach Camila on. Each topic opens with a compact <b>Foundations</b> strip — the prerequisite mechanics in shorthand — then the course method. Sections map to Barnett (14th ed.) and to the units in her practice tool.</p>
+  </header>
+
+  <div class="toc">
+    <div class="tl">The eight topics</div>
+    <ol>
+      <li><a href="#u1">Linear equations &amp; graphs <span class="ex">★</span></a></li>
+      <li><a href="#u2">Matrices &amp; Gauss-Jordan <span class="ex">★</span></a></li>
+      <li><a href="#u3">Linear programming <span class="ex">★</span></a></li>
+      <li><a href="#u4">Sets &amp; counting</a></li>
+      <li><a href="#u5">Probability</a></li>
+      <li><a href="#u6">Expected value</a></li>
+      <li><a href="#u7">Markov chains</a></li>
+      <li><a href="#u8">Bernoulli &amp; binomial</a></li>
+    </ol>
+  </div>
+
+  <!-- U1 -->
+  <section id="u1">
+    <div class="secnum">Unit 1</div>
+    <h2>Linear Equations &amp; Graphs<span class="exam-dot">★ midterm</span></h2>
+    <div class="secmap">Barnett §1.1–1.2 · solving linear equations/inequalities, slope, modeling</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>Solve a linear equation: distribute, combine like terms, undo with inverse operations to isolate the variable.</li>
+      <li>Inequalities solve the same way — but <b>flip the sign</b> when you multiply or divide by a negative.</li>
+      <li>Line forms: <span class="m">y = mx + b</span> · point-slope <span class="m">y − y₁ = m(x − x₁)</span> · standard <span class="m">Ax + By = C</span>.</li>
+      <li>Intercepts: x-int set <span class="m">y = 0</span>; y-int set <span class="m">x = 0</span>.</li>
+    </ul></div>
+    <p>Nothing new for you here — slope-intercept, point-slope, intercepts. The only course flavor is <b>applied linear models</b>: cost/revenue, break-even, and straight-line depreciation. Camila needs to translate a word problem into <span class="m">y = mx + b</span> and interpret the slope as a rate.</p>
+    <div class="formula">slope m = (y₂ − y₁)/(x₂ − x₁)   ·   y = mx + b   ·   break-even: Cost = Revenue</div>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>The recurring stumble is sign and "which is the rate." In <span class="m">Cost = 50 + 4x</span>, push her to say out loud: "$50 fixed, $4 per unit." Break-even is just setting two lines equal — frame it as "where the two lines cross," which she can also see graphically.</p></div>
+  </section>
+
+  <!-- U2 -->
+  <section id="u2">
+    <div class="secnum">Unit 2</div>
+    <h2>Matrices &amp; Gauss-Jordan<span class="exam-dot">★ midterm</span></h2>
+    <div class="secmap">Barnett §4.1–4.6 · systems, matrix operations, Gauss-Jordan elimination, inverses</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>A matrix is an array of rows × columns; entry <span class="m">aᵢⱼ</span> sits in row i, column j.</li>
+      <li>Pre-matrix system solving: <b>substitution</b> (solve one equation for a variable, sub into the other) or <b>elimination</b> (scale a row and add to cancel a variable).</li>
+      <li>Matrix multiply = row · column dot products; defined only when inner dimensions match.</li>
+      <li>2×2: <span class="m">det = ad − bc</span>; the identity <span class="m">I</span> has 1s on the diagonal, 0s elsewhere.</li>
+    </ul></div>
+    <p>You know matrix algebra. The course-specific procedure is <b>Gauss-Jordan by hand</b> to reduced row-echelon form (RREF), then reading the solution straight off. The three legal row operations: swap two rows, multiply a row by a nonzero constant, add a multiple of one row to another. The goal is a leading 1 in each pivot column with 0s above and below it.</p>
+    <div class="example"><div class="lbl">Worked example · Gauss-Jordan</div>
+    <p>Solve <span class="m">x + 2y = 5</span>, <span class="m">3x − y = 1</span>.</p>
+    <table class="aug"><tr><td>1</td><td>2</td><td class="bar">5</td></tr><tr><td>3</td><td>−1</td><td class="bar">1</td></tr></table>
+    <p style="margin:6px 0"><span class="arrow">R2 → R2 − 3·R1</span></p>
+    <table class="aug"><tr><td>1</td><td>2</td><td class="bar">5</td></tr><tr><td>0</td><td>−7</td><td class="bar">−14</td></tr></table>
+    <p style="margin:6px 0"><span class="arrow">R2 → R2 ÷ (−7)</span>, then <span class="arrow">R1 → R1 − 2·R2</span></p>
+    <table class="aug"><tr><td>1</td><td>0</td><td class="bar">1</td></tr><tr><td>0</td><td>1</td><td class="bar">2</td></tr></table>
+    <p>Read it off: <b>x = 1, y = 2</b>. (Check: 1 + 4 = 5 ✓, 3 − 2 = 1 ✓.)</p></div>
+    <p>Also tested: matrix add/subtract (entry-by-entry, same dimensions), scalar multiply, and <b>matrix multiplication</b> (row · column dot products; inner dimensions must match, product takes the outer dimensions). The §4.6 piece is solving <span class="m">AX = B</span> as <span class="m">X = A⁻¹B</span>; for 2×2, <span class="m">A⁻¹ = (1/det)</span> <span class="mtx" style="grid-template-columns:repeat(2,auto)"><span>d</span><span>−b</span><span>−c</span><span>a</span></span> with <span class="m">det = ad − bc</span>.</p>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>Two classic errors: she'll try to multiply matrices entry-by-entry (it's row-by-column), and she'll lose signs during row operations. Have her write the operation she's doing next to each new row — the bookkeeping is most of the battle. Reading RREF is the payoff: a row like <span class="m">[0 1 | −2]</span> literally says "y = −2."</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <!-- U3 -->
+  <section id="u3">
+    <div class="secnum">Unit 3</div>
+    <h2>Linear Programming<span class="exam-dot">★ midterm</span></h2>
+    <div class="secmap">Barnett §5.1–5.3 (graphical) and §6.1–6.2 (simplex)</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>Graph a line fast from its two intercepts; connect them.</li>
+      <li>A linear inequality is a <b>half-plane</b> — boundary solid for ≤/≥, dashed for &lt;/&gt;.</li>
+      <li>Test a point (usually the origin) to decide which side to shade.</li>
+      <li>A corner point = the solution of the two boundary lines solved as a system (Unit 2).</li>
+    </ul></div>
+    <p>Two methods for the same kind of problem. <b>Graphical</b> (two variables): graph each constraint as a half-plane, find the feasible region (the intersection), then evaluate the objective at every <b>corner point</b> — the optimum always sits at a vertex. <b>Simplex</b> (any number of variables): an algorithmic version of the same idea, walking corner to corner via a tableau.</p>
+    <div class="example"><div class="lbl">Worked example · graphical</div>
+    <p>Maximize <span class="m">P = 3x + 4y</span> subject to <span class="m">x + y ≤ 4</span>, <span class="m">x + 3y ≤ 6</span>, <span class="m">x, y ≥ 0</span>.</p>
+    <p>Corners of the feasible region: (0,0), (4,0), (0,2), and the intersection of the two constraint lines, (3,1). Evaluate P:</p>
+    <ul>
+      <li>(0,0) → 0 &nbsp; · &nbsp; (4,0) → 12 &nbsp; · &nbsp; (0,2) → 8 &nbsp; · &nbsp; <b>(3,1) → 13 ✓ max</b></li>
+    </ul></div>
+    <div class="example"><div class="lbl">Worked example · simplex (same problem)</div>
+    <p>Add slack variables to make constraints into equations: <span class="m">x + y + s₁ = 4</span>, <span class="m">x + 3y + s₂ = 6</span>, and write the objective row as <span class="m">P − 3x − 4y = 0</span>.</p>
+    <table class="tab">
+      <tr><th>x</th><th>y</th><th>s₁</th><th>s₂</th><th>P</th><th>RHS</th></tr>
+      <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>4</td></tr>
+      <tr><td>1</td><td class="piv">3</td><td>0</td><td>1</td><td>0</td><td>6</td></tr>
+      <tr class="obj"><td>−3</td><td>−4</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+    </table>
+    <p><b>Pivot rule:</b> most-negative entry in the objective row picks the column (−4 → y). The <b>ratio test</b> (RHS ÷ positive column entry, smallest wins) picks the row: 4/1 = 4 vs 6/3 = 2, so row 2. Pivot on the 3, clear the column. Repeat: next pivot is the x-column, ratio test gives row 1. After that the objective row has no negatives left — optimal.</p>
+    <p>Result: <b>P = 13 at x = 3, y = 1</b> — same answer the graph gave, which is the reassuring check.</p></div>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>For graphical, the make-or-break is plotting constraints correctly and finding the corner coordinates (often by solving two equations simultaneously — ties back to Unit 2). For "which side to shade," test the origin: if it satisfies the inequality, shade toward it. For simplex, she doesn't need the theory — she needs the <b>loop</b>: pick column (most negative), pick row (ratio test), pivot, repeat until no negatives. Doing two full problems by hand makes it muscle memory; that's what the exam rewards.</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <!-- U4 -->
+  <section id="u4">
+    <div class="secnum">Unit 4</div>
+    <h2>Sets &amp; Counting</h2>
+    <div class="secmap">Barnett §7.2–7.4 · sets, Venn diagrams, multiplication principle, permutations &amp; combinations</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>Set notation: <span class="m">∈</span> in · <span class="m">⊆</span> subset · <span class="m">∪</span> or · <span class="m">∩</span> and · <span class="m">A′</span> not · <span class="m">∅</span> empty · <span class="m">U</span> universal.</li>
+      <li><span class="m">|A|</span> = cardinality (count of elements).</li>
+      <li>Factorial: <span class="m">n! = n·(n−1)···2·1</span>, with <span class="m">0! = 1</span>.</li>
+      <li>Multiplication principle: independent choices multiply (m ways, then n ways → <span class="m">m·n</span>).</li>
+    </ul></div>
+    <p>Set basics (union, intersection, complement, cardinality) plus counting. The one formula students forget is inclusion-exclusion; the one distinction they blur is permutations vs combinations.</p>
+    <div class="formula">|A ∪ B| = |A| + |B| − |A ∩ B|   ·   P(n,k) = n!/(n−k)!   ·   C(n,k) = n!/[k!(n−k)!]</div>
+    <p>Permutations count <b>ordered</b> arrangements; combinations count <b>unordered</b> selections. The multiplication principle underlies both: independent choices multiply. A set of n elements has <span class="m">2ⁿ</span> subsets.</p>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>Give her one question to ask every counting problem: <i>"Does order matter?"</i> A committee of 3 (order doesn't matter) → combination; a president-VP-treasurer slate (order matters) → permutation. For Venn problems, fill in the <b>intersection first</b>, then work outward so regions aren't double-counted — that's exactly what inclusion-exclusion is doing algebraically.</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <!-- U5 -->
+  <section id="u5">
+    <div class="secnum">Unit 5</div>
+    <h2>Probability</h2>
+    <div class="secmap">Barnett §8.1–8.3 · sample spaces, addition rule, conditional probability, independence</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li><span class="m">P(event) = favorable / total</span> for equally likely outcomes, and <span class="m">0 ≤ P ≤ 1</span>.</li>
+      <li>Sample space = the set of all possible outcomes.</li>
+      <li>Complement: <span class="m">P(not A) = 1 − P(A)</span>.</li>
+      <li>Fluency moving between fractions, decimals, and percents.</li>
+    </ul></div>
+    <p>Standard discrete probability. The three load-bearing rules:</p>
+    <div class="formula">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)   ·   P(A | B) = P(A ∩ B) / P(B)   ·   independent: P(A ∩ B) = P(A)·P(B)</div>
+    <p>The course leans on <b>tree diagrams</b> for multi-stage experiments and conditional probability. Odds-to-probability shows up too: odds <span class="m">a:b</span> in favor means probability <span class="m">a/(a+b)</span>.</p>
+    <div class="example"><div class="lbl">Worked example · tree / conditional</div>
+    <p>Machine A makes 60% of parts (2% defective); Machine B makes 40% (5% defective). Probability a random part is defective?</p>
+    <p><span class="m">P(def) = 0.60·0.02 + 0.40·0.05 = 0.012 + 0.020 = 0.032</span></p>
+    <p>And if a part <i>is</i> defective, the probability it came from A: <span class="m">P(A | def) = 0.012 / 0.032 = 0.375</span>.</p></div>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>The big trap is "and" vs "or": "or" adds (and subtracts the overlap), "and" multiplies (for independent events). When in doubt, draw the tree — branch probabilities multiply along a path, and you add across the paths that satisfy the event. Conditional probability is just "shrink the world to B, then ask about A."</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <!-- U6 -->
+  <section id="u6">
+    <div class="secnum">Unit 6</div>
+    <h2>Expected Value</h2>
+    <div class="secmap">Barnett §8.5 · expected value of a random variable</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>Weighted average: multiply each value by its weight, then add the products.</li>
+      <li><span class="m">Σ</span> (sigma) means "sum all the terms."</li>
+      <li>The weights here are probabilities — they must cover all outcomes and sum to 1.</li>
+    </ul></div>
+    <p>A weighted average of outcomes by their probabilities. Conceptually trivial for you; the application framing (is a game/bet fair?) is the point.</p>
+    <div class="formula">E(X) = Σ xᵢ · P(xᵢ)     ·     fair game ⇔ E(X) = 0</div>
+    <div class="example"><div class="lbl">Worked example</div>
+    <p>Win $10 with probability 0.2, lose $3 with probability 0.8:</p>
+    <p><span class="m">E(X) = (0.2)(10) + (0.8)(−3) = 2 − 2.4 = −$0.40</span> per play — a losing game in the long run.</p></div>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>Two reminders: losses are <b>negative</b> values (sign errors are the #1 mistake), and the probabilities must cover every outcome and sum to 1. Frame the answer as "average per play over many plays," which makes a negative expected value feel concrete.</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <!-- U7 -->
+  <section id="u7">
+    <div class="secnum">Unit 7</div>
+    <h2>Markov Chains</h2>
+    <div class="secmap">Barnett §9.1–9.2 · transition matrices, state vectors, steady state</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>Probability vector: nonnegative entries that sum to 1.</li>
+      <li>Row vector × matrix: <span class="m">[a b]·P</span> combines the row entries with each column — a 1×n times n×n gives 1×n.</li>
+      <li>Matrix power <span class="m">Pⁿ</span> = P multiplied by itself n times (n-step transitions).</li>
+    </ul></div>
+    <p>This is the topic most likely to feel unfamiliar even to an engineer. A <b>transition matrix</b> P has rows that each sum to 1 (the probabilities of moving from one state to all states). Multiply a state vector by P to step forward: <span class="m">Sₙ₊₁ = Sₙ·P</span>. A <b>regular</b> chain (some power of P has all-positive entries) converges to a unique <b>steady-state</b> vector π, regardless of where you start.</p>
+    <p>Finding π is the key technique: solve <span class="m">π·P = π</span> together with "entries sum to 1."</p>
+    <div class="example"><div class="lbl">Worked example · steady state</div>
+    <p>P = <span class="mtx" style="grid-template-columns:repeat(2,auto)"><span>0.8</span><span>0.2</span><span>0.3</span><span>0.7</span></span>. Let π = [a, 1−a]. The first component of π·P = π gives:</p>
+    <p><span class="m">0.8a + 0.3(1−a) = a → 0.5a + 0.3 = a → a = 0.6</span></p>
+    <p>So <b>π = [0.6, 0.4]</b>. (Check: [0.6, 0.4]·P = [0.6, 0.4] ✓.)</p></div>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>Anchor it with a story — weather (sunny/rainy), or customers switching between two brands. "Where does it settle long-term, no matter today's weather?" is the steady state. Mechanically, the two things she must not forget: <b>row vector times matrix</b> (state on the left), and rows of P sum to 1. The steady-state solve is just a small system of equations — back to Unit 2 again.</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <!-- U8 -->
+  <section id="u8">
+    <div class="secnum">Unit 8</div>
+    <h2>Bernoulli &amp; Binomial</h2>
+    <div class="secmap">Barnett §10.4 · Bernoulli trials, the binomial distribution</div>
+    <div class="found"><div class="lbl">Foundations</div><ul>
+      <li>Combinations <span class="m">C(n,k)</span> = ways to choose k of n, order ignored (Unit 4).</li>
+      <li>Exponents: <span class="m">pᵏ</span> = p multiplied k times; <span class="m">p⁰ = 1</span>.</li>
+      <li>Independent events multiply; complementary probabilities p and 1−p sum to 1.</li>
+    </ul></div>
+    <p>A <b>Bernoulli trial</b> is a single success/failure experiment with fixed probability p. The <b>binomial distribution</b> counts successes over n independent trials:</p>
+    <div class="formula">P(X = k) = C(n,k) · pᵏ · (1−p)ⁿ⁻ᵏ     ·     mean = n·p</div>
+    <p>The three ingredients are the count of arrangements <span class="m">C(n,k)</span> (ties back to Unit 4), the successes <span class="m">pᵏ</span>, and the failures <span class="m">(1−p)ⁿ⁻ᵏ</span>. For "at least one," it's almost always faster to use the complement: <span class="m">1 − P(none)</span>.</p>
+    <div class="example"><div class="lbl">Worked example</div>
+    <p>Five fair coin flips, probability of exactly 2 heads:</p>
+    <p><span class="m">C(5,2)·(0.5)²·(0.5)³ = 10 · (1/32) = 0.3125</span></p></div>
+    <div class="teach"><div class="lbl">Teaching Camila</div>
+    <p>Make sure she sees the three pieces of the formula and why each is there — the <span class="m">C(n,k)</span> is "how many ways the k successes can be placed among n trials." For "at least one," steer her to the complement trick before she tries to add up many cases. The expected number of successes is just <span class="m">np</span>.</p></div>
+    <a class="top" href="#u1">↑ top</a>
+  </section>
+
+  <footer>
+    Pairs with the Command Center (deadlines &amp; grades) and Practice Studio (99 problems).<br>
+    Section numbers follow Barnett, <i>Finite Mathematics</i>, 14th ed.
+  </footer>
+</div>
+</body>
+</html>

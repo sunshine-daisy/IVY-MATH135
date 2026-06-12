@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finite Math · Instructor Refresher</title>
+<title>Finite Math · Teaching Companion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,16 +21,24 @@
   body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);
     line-height:1.62;-webkit-font-smoothing:antialiased;padding:0 18px 80px}
   .wrap{max-width:760px;margin:0 auto}
+  .homelink{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:600;color:var(--sage-deep);text-decoration:none;padding:22px 0 2px}
+  .homelink:hover{color:var(--ink)}
   h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;line-height:1.12}
 
-  header{padding:38px 0 8px}
+  header{padding:16px 0 8px}
   .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:10px}
   h1{font-size:2.2rem;font-weight:800}
   h1 .sub{display:block;font-size:1.05rem;font-weight:600;color:var(--muted);margin-top:8px;letter-spacing:-.01em}
   .lede{font-size:1.02rem;color:#3a443d;margin:18px 0 4px}
 
-  /* TOC */
-  .toc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:24px 0 8px;box-shadow:var(--shadow)}
+  .callout{background:var(--sun-soft);border:1px solid var(--sun);border-radius:14px;padding:18px 22px;margin:22px 0 6px}
+  .callout h3{font-size:1rem;font-weight:800;color:#8a6310;margin-bottom:9px;text-transform:none;letter-spacing:-.01em}
+  .callout p{font-size:.92rem;color:#5a4a1f;margin-bottom:9px}
+  .callout p:last-child{margin-bottom:0}
+  .callout ol{margin:6px 0 0 2px;padding-left:20px}
+  .callout li{font-size:.9rem;color:#5a4a1f;margin-bottom:6px}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:20px 0 8px;box-shadow:var(--shadow)}
   .toc .tl{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
   .toc ol{list-style:none;counter-reset:t;display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
   .toc li{counter-increment:t;font-size:.9rem}
@@ -39,15 +47,14 @@
   .toc li a::before{content:counter(t);font-family:'Bricolage Grotesque';font-weight:800;color:var(--sage);font-size:.82rem;min-width:14px}
   .toc li .ex{color:var(--sun);font-weight:800}
 
-  /* Sections */
   section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 22px;
     margin:16px 0;box-shadow:var(--shadow);scroll-margin-top:14px}
   .secnum{font-family:'Bricolage Grotesque';font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--sage);text-transform:uppercase}
-  h2{font-size:1.45rem;font-weight:800;margin:3px 0 2px}
+  h2{font-size:1.5rem;font-weight:800;margin:3px 0 2px}
   .secmap{font-size:.82rem;color:var(--muted);margin-bottom:16px}
   .exam-dot{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
     background:var(--sun-soft);color:#9a6f12;padding:3px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
-  h3{font-size:.94rem;font-weight:800;color:var(--sage-deep);text-transform:uppercase;letter-spacing:.05em;margin:20px 0 8px}
+  h3{font-size:.94rem;font-weight:800;color:var(--sage-deep);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 9px}
   p{margin-bottom:11px}
   ul,ol.steps{margin:4px 0 12px;padding-left:22px}
   li{margin-bottom:6px}
@@ -58,16 +65,18 @@
 
   .example{border-left:3px solid var(--sage);background:#fcfdfb;border-radius:0 12px 12px 0;padding:14px 18px;margin:12px 0}
   .example .lbl{font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:8px}
+  .mistakes{border-left:3px solid var(--coral);background:#fdf6f3;border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0}
+  .mistakes .lbl{font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#b85535;margin-bottom:8px}
   .teach{border-left:3px solid var(--sun);background:#fffdf6;border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0 2px}
   .teach .lbl{font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#9a6f12;margin-bottom:8px}
-  .teach p:last-child,.example p:last-child{margin-bottom:0}
+  .teach p:last-child,.example p:last-child,.mistakes p:last-child{margin-bottom:0}
+
   .found{background:#f3f2ec;border:1px dashed #d8d3c4;border-radius:12px;padding:12px 16px;margin:0 0 14px}
   .found .lbl{font-size:.66rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
   .found ul{margin:0;padding-left:18px}
   .found li{margin-bottom:4px;font-size:.88rem;color:#3a443d}
   .found li:last-child{margin-bottom:0}
 
-  /* math tables */
   table.aug,table.tab{border-collapse:collapse;font-family:var(--mono);font-size:.86rem;margin:10px 0;display:block;overflow-x:auto;white-space:nowrap}
   table.aug td,table.tab td,table.tab th{padding:5px 12px;text-align:right}
   table.tab th{font-weight:700;color:var(--sage-deep);border-bottom:1.5px solid var(--line);text-align:right}
@@ -75,32 +84,53 @@
   table.aug td.bar{border-left:1.5px solid var(--muted)}
   table.tab tr.obj td{border-top:1.5px solid var(--line);color:var(--coral);font-weight:700}
   table.tab td.piv{background:var(--sun-soft);font-weight:800;border-radius:4px}
-  .arrow{color:var(--muted);font-weight:600;margin:0 6px}
+  .arrow{color:var(--muted);font-weight:600;margin:0 4px}
+  .step-note{font-size:.86rem;color:var(--muted);margin:6px 0}
 
   .mtx{display:inline-grid;gap:2px 16px;padding:4px 10px;margin:0 3px;vertical-align:middle;position:relative;font-family:var(--mono);font-size:.88em;font-weight:600;justify-items:end}
   .mtx::before,.mtx::after{content:"";position:absolute;top:2px;bottom:2px;width:6px;border:2px solid var(--ink)}
   .mtx::before{left:0;border-right:none;border-radius:3px 0 0 3px}
   .mtx::after{right:0;border-left:none;border-radius:0 3px 3px 0}
 
-  footer{text-align:center;font-size:.76rem;color:var(--muted);margin-top:34px;line-height:1.7}
-  a.top{display:block;text-align:right;font-size:.74rem;color:var(--sage);text-decoration:none;margin-top:10px}
+  .closing{background:var(--sage-soft);border-radius:var(--radius);padding:22px 24px;margin:20px 0 0}
+  .closing h3{color:var(--sage-deep);text-transform:none;letter-spacing:-.01em;font-size:1.05rem;margin-bottom:9px}
+  .closing p{font-size:.92rem;color:#36443b;margin-bottom:9px}
+  .closing p:last-child{margin-bottom:0}
+
+  footer{text-align:center;font-size:.76rem;color:var(--muted);margin-top:30px;line-height:1.7}
+  a.top{display:block;text-align:right;font-size:.74rem;color:var(--sage);text-decoration:none;margin-top:12px}
   @media(max-width:560px){h1{font-size:1.8rem}.toc ol{grid-template-columns:1fr}section{padding:22px 18px}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <a class="homelink" href="index.html">&larr; Home Base</a>
   <header>
-    <div class="eyebrow">Ivy Tech MATH 135 · Instructor Refresher</div>
-    <h1>Finite Math, for the person teaching it<span class="sub">A fast re-orientation for an engineer who's done all this before</span></h1>
-    <p class="lede">You know the underlying math. What's worth refreshing is the <b>course-specific procedure</b> for each topic — and the fact that <b>Desmos and Excel are banned on both exams</b>, so everything here is done <b>by hand</b>. That's the real skill being graded, and the thing to coach Camila on. Each topic opens with a compact <b>Foundations</b> strip — the prerequisite mechanics in shorthand — then the course method. Sections map to Barnett (14th ed.) and to the units in her practice tool.</p>
+    <div class="eyebrow">Ivy Tech MATH 135 · Teaching Companion</div>
+    <h1>Finite Math, taught from the ground up<span class="sub">A deeper guide for helping Camila — foundations, full worked examples, and a coaching plan for each topic</span></h1>
+    <p class="lede">This version is built for the situation where the student is genuinely behind. Each topic gives you the <b>foundations</b> in shorthand, the <b>method</b> explained slowly with the "why," <b>several fully-worked examples</b> from easy to harder, the <b>specific mistakes</b> students make, and a concrete <b>plan for teaching it</b> to someone who's struggling. Remember the exam reality: Desmos and Excel are banned, so every method here must be done <b>by hand</b> — that's what you're building toward.</p>
   </header>
+
+  <div class="callout">
+    <h3>How to use this with a student who's behind</h3>
+    <p>A few principles that make the difference when someone is lost, woven through every "how to teach it" box below:</p>
+    <ol>
+      <li><b>Concrete before abstract.</b> Always start with real numbers and a real situation, then generalize. Never open with the formula.</li>
+      <li><b>One technique at a time.</b> Don't mix topics in a session. Master the move, then add the next.</li>
+      <li><b>Watch, then guided, then solo.</b> You work one example fully; you work the next together; she works the third while you only nudge. Three reps beats one lecture.</li>
+      <li><b>Make her narrate.</b> "Tell me what you're about to do and why." Saying it out loud surfaces the gap better than watching her write.</li>
+      <li><b>Check every answer by substitution.</b> It catches errors and — more importantly — it builds her confidence that she can verify her own work.</li>
+      <li><b>Front-load the midterm units.</b> Units 1–3 (★) carry the first exam and the heaviest weight. Get those solid first; the later units lean on the same skills.</li>
+    </ol>
+    <p>After teaching a unit, send her to that unit in the <b>Practice Studio</b> — the worked solutions there reinforce exactly what you covered.</p>
+  </div>
 
   <div class="toc">
     <div class="tl">The eight topics</div>
     <ol>
-      <li><a href="#u1">Linear equations &amp; graphs <span class="ex">★</span></a></li>
-      <li><a href="#u2">Matrices &amp; Gauss-Jordan <span class="ex">★</span></a></li>
-      <li><a href="#u3">Linear programming <span class="ex">★</span></a></li>
+      <li><a href="#u1">Linear equations &amp; graphs <span class="ex">&#9733;</span></a></li>
+      <li><a href="#u2">Matrices &amp; Gauss-Jordan <span class="ex">&#9733;</span></a></li>
+      <li><a href="#u3">Linear programming <span class="ex">&#9733;</span></a></li>
       <li><a href="#u4">Sets &amp; counting</a></li>
       <li><a href="#u5">Probability</a></li>
       <li><a href="#u6">Expected value</a></li>
@@ -109,188 +139,388 @@
     </ol>
   </div>
 
-  <!-- U1 -->
+  <!-- ============ U1 ============ -->
   <section id="u1">
     <div class="secnum">Unit 1</div>
-    <h2>Linear Equations &amp; Graphs<span class="exam-dot">★ midterm</span></h2>
-    <div class="secmap">Barnett §1.1–1.2 · solving linear equations/inequalities, slope, modeling</div>
+    <h2>Linear Equations &amp; Graphs<span class="exam-dot">&#9733; midterm</span></h2>
+    <div class="secmap">Barnett &sect;1.1&ndash;1.2 &middot; solving linear equations/inequalities, slope, modeling</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
       <li>Solve a linear equation: distribute, combine like terms, undo with inverse operations to isolate the variable.</li>
-      <li>Inequalities solve the same way — but <b>flip the sign</b> when you multiply or divide by a negative.</li>
-      <li>Line forms: <span class="m">y = mx + b</span> · point-slope <span class="m">y − y₁ = m(x − x₁)</span> · standard <span class="m">Ax + By = C</span>.</li>
+      <li>Inequalities solve the same way &mdash; but <b>flip the sign</b> when you multiply or divide by a negative.</li>
+      <li>Line forms: <span class="m">y = mx + b</span> &middot; point-slope <span class="m">y &minus; y&#8321; = m(x &minus; x&#8321;)</span> &middot; standard <span class="m">Ax + By = C</span>.</li>
       <li>Intercepts: x-int set <span class="m">y = 0</span>; y-int set <span class="m">x = 0</span>.</li>
     </ul></div>
-    <p>Nothing new for you here — slope-intercept, point-slope, intercepts. The only course flavor is <b>applied linear models</b>: cost/revenue, break-even, and straight-line depreciation. Camila needs to translate a word problem into <span class="m">y = mx + b</span> and interpret the slope as a rate.</p>
-    <div class="formula">slope m = (y₂ − y₁)/(x₂ − x₁)   ·   y = mx + b   ·   break-even: Cost = Revenue</div>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>The recurring stumble is sign and "which is the rate." In <span class="m">Cost = 50 + 4x</span>, push her to say out loud: "$50 fixed, $4 per unit." Break-even is just setting two lines equal — frame it as "where the two lines cross," which she can also see graphically.</p></div>
+
+    <h3>The method</h3>
+    <p><b>Solving.</b> The goal is always to get the variable alone. Work in reverse order of operations: undo addition/subtraction first, then multiplication/division. If there are parentheses, distribute; if the variable appears on both sides, collect it on one side. Inequalities follow the identical steps, with the one extra rule that multiplying or dividing both sides by a negative <b>reverses</b> the inequality symbol.</p>
+    <p><b>Lines.</b> Slope <span class="m">m = (y&#8322; &minus; y&#8321;)/(x&#8322; &minus; x&#8321;)</span> is the rate of change &mdash; how much y moves per one-unit step in x. In <span class="m">y = mx + b</span>, the slope <span class="m">m</span> is that rate and <span class="m">b</span> is the starting value (the y-intercept). To graph, plot <span class="m">b</span> on the y-axis, then use the slope as rise-over-run to step to the next point.</p>
+    <p><b>Modeling.</b> Most word problems here are a line in disguise: find the <b>fixed amount</b> (that's <span class="m">b</span>) and the <b>per-unit rate</b> (that's <span class="m">m</span>). Break-even means setting two expressions equal (cost = revenue). Straight-line depreciation subtracts a fixed amount each year from a starting value.</p>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; multi-step equation</div>
+    <p>Solve <span class="m">2(3x &minus; 4) = 4x + 10</span>.</p>
+    <p class="step-note">Distribute the 2: <span class="m">6x &minus; 8 = 4x + 10</span></p>
+    <p class="step-note">Collect x on the left, numbers on the right: <span class="m">6x &minus; 4x = 10 + 8</span> &rarr; <span class="m">2x = 18</span></p>
+    <p class="step-note">Divide by 2: <b>x = 9</b>. Check: <span class="m">2(27&minus;4) = 46</span> and <span class="m">4(9)+10 = 46</span> &#10003;</p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; build a line from two points</div>
+    <p>Find the equation of the line through <span class="m">(&minus;1, 5)</span> and <span class="m">(2, &minus;1)</span>.</p>
+    <p class="step-note">Slope: <span class="m">m = (&minus;1 &minus; 5)/(2 &minus; (&minus;1)) = &minus;6/3 = &minus;2</span></p>
+    <p class="step-note">Point-slope with (2, &minus;1): <span class="m">y + 1 = &minus;2(x &minus; 2)</span> &rarr; <span class="m">y = &minus;2x + 3</span></p>
+    <p class="step-note">Check the other point (&minus;1, 5): <span class="m">&minus;2(&minus;1)+3 = 5</span> &#10003;</p></div>
+    <div class="example"><div class="lbl">Example 3 &middot; break-even (application)</div>
+    <p>A vendor pays $300 to rent a booth plus $2 per item to make, and sells each item for $5. How many items to break even?</p>
+    <p class="step-note">Cost <span class="m">C = 300 + 2x</span>; Revenue <span class="m">R = 5x</span></p>
+    <p class="step-note">Set equal: <span class="m">300 + 2x = 5x</span> &rarr; <span class="m">300 = 3x</span> &rarr; <b>x = 100 items</b></p></div>
+    <div class="example"><div class="lbl">Example 4 &middot; inequality with a sign flip</div>
+    <p>Solve <span class="m">&minus;3x + 7 &ge; 1</span>.</p>
+    <p class="step-note">Subtract 7: <span class="m">&minus;3x &ge; &minus;6</span></p>
+    <p class="step-note">Divide by &minus;3 &mdash; <b>flip the sign</b>: <b>x &le; 2</b></p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Distributing to only the first term: <span class="m">2(3x &minus; 4)</span> becomes <span class="m">6x &minus; 8</span>, not <span class="m">6x &minus; 4</span>.</li>
+      <li>Sign errors when moving a term across the equals sign (it changes sign).</li>
+      <li>Forgetting to flip the inequality when dividing by a negative.</li>
+      <li>In word problems, mixing up which number is the rate (slope) and which is the fixed start (intercept).</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Open every equation with one question: <i>"What's being done to x?"</i> &mdash; then undo it in reverse. Have her say the steps aloud before writing. For lines, anchor "slope = rise over run" with a physical image (stairs or a ramp), and always plug the answer back in to check. For word problems, before any algebra, have her point to the fixed part and the per-item part out loud; the equation falls out once those are labeled. This unit is mostly review for her &mdash; use it to rebuild confidence and the substitution-checking habit she'll need everywhere else.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U2 -->
+  <!-- ============ U2 ============ -->
   <section id="u2">
     <div class="secnum">Unit 2</div>
-    <h2>Matrices &amp; Gauss-Jordan<span class="exam-dot">★ midterm</span></h2>
-    <div class="secmap">Barnett §4.1–4.6 · systems, matrix operations, Gauss-Jordan elimination, inverses</div>
+    <h2>Matrices &amp; Gauss-Jordan<span class="exam-dot">&#9733; midterm</span></h2>
+    <div class="secmap">Barnett &sect;4.1&ndash;4.6 &middot; systems, matrix operations, Gauss-Jordan elimination, inverses</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
-      <li>A matrix is an array of rows × columns; entry <span class="m">aᵢⱼ</span> sits in row i, column j.</li>
+      <li>A matrix is an array of rows &times; columns; entry <span class="m">a&#7522;&#11388;</span> sits in row i, column j.</li>
       <li>Pre-matrix system solving: <b>substitution</b> (solve one equation for a variable, sub into the other) or <b>elimination</b> (scale a row and add to cancel a variable).</li>
-      <li>Matrix multiply = row · column dot products; defined only when inner dimensions match.</li>
-      <li>2×2: <span class="m">det = ad − bc</span>; the identity <span class="m">I</span> has 1s on the diagonal, 0s elsewhere.</li>
+      <li>Matrix multiply = row &middot; column dot products; defined only when inner dimensions match.</li>
+      <li>2&times;2: <span class="m">det = ad &minus; bc</span>; the identity <span class="m">I</span> has 1s on the diagonal, 0s elsewhere.</li>
     </ul></div>
-    <p>You know matrix algebra. The course-specific procedure is <b>Gauss-Jordan by hand</b> to reduced row-echelon form (RREF), then reading the solution straight off. The three legal row operations: swap two rows, multiply a row by a nonzero constant, add a multiple of one row to another. The goal is a leading 1 in each pivot column with 0s above and below it.</p>
-    <div class="example"><div class="lbl">Worked example · Gauss-Jordan</div>
-    <p>Solve <span class="m">x + 2y = 5</span>, <span class="m">3x − y = 1</span>.</p>
-    <table class="aug"><tr><td>1</td><td>2</td><td class="bar">5</td></tr><tr><td>3</td><td>−1</td><td class="bar">1</td></tr></table>
-    <p style="margin:6px 0"><span class="arrow">R2 → R2 − 3·R1</span></p>
-    <table class="aug"><tr><td>1</td><td>2</td><td class="bar">5</td></tr><tr><td>0</td><td>−7</td><td class="bar">−14</td></tr></table>
-    <p style="margin:6px 0"><span class="arrow">R2 → R2 ÷ (−7)</span>, then <span class="arrow">R1 → R1 − 2·R2</span></p>
-    <table class="aug"><tr><td>1</td><td>0</td><td class="bar">1</td></tr><tr><td>0</td><td>1</td><td class="bar">2</td></tr></table>
-    <p>Read it off: <b>x = 1, y = 2</b>. (Check: 1 + 4 = 5 ✓, 3 − 2 = 1 ✓.)</p></div>
-    <p>Also tested: matrix add/subtract (entry-by-entry, same dimensions), scalar multiply, and <b>matrix multiplication</b> (row · column dot products; inner dimensions must match, product takes the outer dimensions). The §4.6 piece is solving <span class="m">AX = B</span> as <span class="m">X = A⁻¹B</span>; for 2×2, <span class="m">A⁻¹ = (1/det)</span> <span class="mtx" style="grid-template-columns:repeat(2,auto)"><span>d</span><span>−b</span><span>−c</span><span>a</span></span> with <span class="m">det = ad − bc</span>.</p>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>Two classic errors: she'll try to multiply matrices entry-by-entry (it's row-by-column), and she'll lose signs during row operations. Have her write the operation she's doing next to each new row — the bookkeeping is most of the battle. Reading RREF is the payoff: a row like <span class="m">[0 1 | −2]</span> literally says "y = −2."</p></div>
-    <a class="top" href="#u1">↑ top</a>
+
+    <h3>The method</h3>
+    <p><b>Start with plain systems.</b> Before matrices, two equations in two unknowns are solved by <b>substitution</b> (solve one equation for a variable, plug into the other) or <b>elimination</b> (scale equations so a variable cancels when you add them). Gauss-Jordan is just elimination, organized.</p>
+    <p><b>The augmented matrix.</b> Write the coefficients in a grid and the constants in a last column (the bar). Each row is one equation. There are exactly <b>three legal moves</b>: swap two rows, multiply a row by a nonzero number, or add a multiple of one row to another.</p>
+    <p><b>The goal (RREF).</b> Drive the left side to the identity: a leading <b>1</b> in each pivot position, with <b>0s above and below</b> it. The strategy is a staircase &mdash; get a 1 in the top-left, clear the rest of that column, move down-right to the next pivot, repeat, then clear upward. When the left is the identity, the constants column <i>is</i> the answer.</p>
+    <p><b>Matrix arithmetic.</b> Add/subtract entrywise (same size only). Scalar multiply hits every entry. <b>Multiplication</b> is row-times-column dot products; the inner dimensions must match and order matters (<span class="m">AB &ne; BA</span>). For a 2&times;2, the inverse is <span class="m">A&#8315;&#185; = (1/det)</span> <span class="mtx" style="grid-template-columns:repeat(2,auto)"><span>d</span><span>&minus;b</span><span>&minus;c</span><span>a</span></span>, and a system <span class="m">AX = B</span> solves as <span class="m">X = A&#8315;&#185;B</span>.</p>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; elimination, no matrix yet</div>
+    <p>Solve <span class="m">2x + 3y = 12</span> and <span class="m">x &minus; y = 1</span>.</p>
+    <p class="step-note">From the second equation, <span class="m">x = y + 1</span>. Substitute: <span class="m">2(y+1) + 3y = 12</span></p>
+    <p class="step-note"><span class="m">2y + 2 + 3y = 12</span> &rarr; <span class="m">5y = 10</span> &rarr; <span class="m">y = 2</span>, so <span class="m">x = 3</span></p>
+    <p class="step-note">Solution <b>(3, 2)</b>. Check: <span class="m">2(3)+3(2)=12</span> &#10003;, <span class="m">3&minus;2=1</span> &#10003;</p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; Gauss-Jordan, 2&times;2</div>
+    <p>Solve <span class="m">x + 2y = 4</span>, <span class="m">3x + 4y = 10</span>.</p>
+    <table class="aug"><tr><td>1</td><td>2</td><td class="bar">4</td></tr><tr><td>3</td><td>4</td><td class="bar">10</td></tr></table>
+    <p class="step-note"><span class="arrow">R2 &rarr; R2 &minus; 3&middot;R1</span> (clear below the first pivot)</p>
+    <table class="aug"><tr><td>1</td><td>2</td><td class="bar">4</td></tr><tr><td>0</td><td>&minus;2</td><td class="bar">&minus;2</td></tr></table>
+    <p class="step-note"><span class="arrow">R2 &rarr; R2 &divide; (&minus;2)</span>, then <span class="arrow">R1 &rarr; R1 &minus; 2&middot;R2</span></p>
+    <table class="aug"><tr><td>1</td><td>0</td><td class="bar">2</td></tr><tr><td>0</td><td>1</td><td class="bar">1</td></tr></table>
+    <p>Read it off: <b>x = 2, y = 1</b>. Check: <span class="m">2+2=4</span> &#10003;, <span class="m">6+4=10</span> &#10003;</p></div>
+    <div class="example"><div class="lbl">Example 3 &middot; the staircase on a 3&times;3</div>
+    <p>Solve <span class="m">x + y + z = 6</span>, <span class="m">2x &minus; y + z = 3</span>, <span class="m">x + 2y &minus; z = 2</span>.</p>
+    <table class="aug"><tr><td>1</td><td>1</td><td>1</td><td class="bar">6</td></tr><tr><td>2</td><td>&minus;1</td><td>1</td><td class="bar">3</td></tr><tr><td>1</td><td>2</td><td>&minus;1</td><td class="bar">2</td></tr></table>
+    <p class="step-note">Clear column 1: <span class="arrow">R2 &rarr; R2 &minus; 2&middot;R1</span>, <span class="arrow">R3 &rarr; R3 &minus; R1</span></p>
+    <table class="aug"><tr><td>1</td><td>1</td><td>1</td><td class="bar">6</td></tr><tr><td>0</td><td>&minus;3</td><td>&minus;1</td><td class="bar">&minus;9</td></tr><tr><td>0</td><td>1</td><td>&minus;2</td><td class="bar">&minus;4</td></tr></table>
+    <p class="step-note">Swap R2 and R3 so the next pivot is a clean 1, then <span class="arrow">R3 &rarr; R3 + 3&middot;R2</span></p>
+    <table class="aug"><tr><td>1</td><td>1</td><td>1</td><td class="bar">6</td></tr><tr><td>0</td><td>1</td><td>&minus;2</td><td class="bar">&minus;4</td></tr><tr><td>0</td><td>0</td><td>&minus;7</td><td class="bar">&minus;21</td></tr></table>
+    <p class="step-note"><span class="arrow">R3 &rarr; R3 &divide; (&minus;7)</span> gives <span class="m">z = 3</span>; then clear upward: <span class="arrow">R2 &rarr; R2 + 2&middot;R3</span>, <span class="arrow">R1 &rarr; R1 &minus; R3</span>, <span class="arrow">R1 &rarr; R1 &minus; R2</span></p>
+    <table class="aug"><tr><td>1</td><td>0</td><td>0</td><td class="bar">1</td></tr><tr><td>0</td><td>1</td><td>0</td><td class="bar">2</td></tr><tr><td>0</td><td>0</td><td>1</td><td class="bar">3</td></tr></table>
+    <p>Solution <b>(1, 2, 3)</b>. Check the third equation: <span class="m">1 + 4 &minus; 3 = 2</span> &#10003;</p></div>
+    <div class="example"><div class="lbl">Example 4 &middot; matrix multiplication</div>
+    <p>Multiply <span class="m">[[2,1],[0,3]] &times; [[1,4],[2,&minus;1]]</span>.</p>
+    <p class="step-note">Top-left = row1&middot;col1 = <span class="m">2&middot;1 + 1&middot;2 = 4</span>; top-right = row1&middot;col2 = <span class="m">2&middot;4 + 1&middot;(&minus;1) = 7</span></p>
+    <p class="step-note">Bottom-left = <span class="m">0&middot;1 + 3&middot;2 = 6</span>; bottom-right = <span class="m">0&middot;4 + 3&middot;(&minus;1) = &minus;3</span></p>
+    <p>Result <span class="m">[[4,7],[6,&minus;3]]</span>.</p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Multiplying matrices entry-by-entry instead of row-by-column &mdash; the single most common error.</li>
+      <li>Arithmetic and sign slips inside a row operation (this is where 3&times;3 problems go wrong).</li>
+      <li>Forgetting that order matters: <span class="m">AB</span> is not <span class="m">BA</span>.</li>
+      <li>Trying to multiply matrices whose inner dimensions don't match.</li>
+      <li>Losing track of which row operation she just did.</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Teach substitution and elimination first, until she can solve a 2&times;2 system without hesitation &mdash; <i>then</i> introduce the matrix as "the same elimination, written more neatly." Make her write the row operation next to every new row, every single time; that bookkeeping habit is most of the battle. Drill one mantra at each pivot: <b>"a 1 in the spot, 0s in the rest of the column."</b> For multiplication, have her physically trace the row with one finger and the column with another so the motion becomes automatic. When the 3&times;3 looks intimidating, reassure her it's the exact same three moves, just with more rows &mdash; and always finish by checking the solution in the original equations.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U3 -->
+  <!-- ============ U3 ============ -->
   <section id="u3">
     <div class="secnum">Unit 3</div>
-    <h2>Linear Programming<span class="exam-dot">★ midterm</span></h2>
-    <div class="secmap">Barnett §5.1–5.3 (graphical) and §6.1–6.2 (simplex)</div>
+    <h2>Linear Programming<span class="exam-dot">&#9733; midterm</span></h2>
+    <div class="secmap">Barnett &sect;5.1&ndash;5.3 (graphical) and &sect;6.1&ndash;6.2 (simplex)</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
       <li>Graph a line fast from its two intercepts; connect them.</li>
-      <li>A linear inequality is a <b>half-plane</b> — boundary solid for ≤/≥, dashed for &lt;/&gt;.</li>
+      <li>A linear inequality is a <b>half-plane</b> &mdash; boundary solid for &le;/&ge;, dashed for &lt;/&gt;.</li>
       <li>Test a point (usually the origin) to decide which side to shade.</li>
       <li>A corner point = the solution of the two boundary lines solved as a system (Unit 2).</li>
     </ul></div>
-    <p>Two methods for the same kind of problem. <b>Graphical</b> (two variables): graph each constraint as a half-plane, find the feasible region (the intersection), then evaluate the objective at every <b>corner point</b> — the optimum always sits at a vertex. <b>Simplex</b> (any number of variables): an algorithmic version of the same idea, walking corner to corner via a tableau.</p>
-    <div class="example"><div class="lbl">Worked example · graphical</div>
-    <p>Maximize <span class="m">P = 3x + 4y</span> subject to <span class="m">x + y ≤ 4</span>, <span class="m">x + 3y ≤ 6</span>, <span class="m">x, y ≥ 0</span>.</p>
-    <p>Corners of the feasible region: (0,0), (4,0), (0,2), and the intersection of the two constraint lines, (3,1). Evaluate P:</p>
-    <ul>
-      <li>(0,0) → 0 &nbsp; · &nbsp; (4,0) → 12 &nbsp; · &nbsp; (0,2) → 8 &nbsp; · &nbsp; <b>(3,1) → 13 ✓ max</b></li>
-    </ul></div>
-    <div class="example"><div class="lbl">Worked example · simplex (same problem)</div>
-    <p>Add slack variables to make constraints into equations: <span class="m">x + y + s₁ = 4</span>, <span class="m">x + 3y + s₂ = 6</span>, and write the objective row as <span class="m">P − 3x − 4y = 0</span>.</p>
+
+    <h3>The method &mdash; graphical (two variables)</h3>
+    <p>The whole procedure is seven steps: (1) translate the words into an <b>objective function</b> and <b>constraints</b>; (2) graph each constraint as a line; (3) shade the correct side of each (test the origin); (4) the <b>feasible region</b> is where all the shadings overlap; (5) find every <b>corner point</b> by solving the lines that cross there; (6) plug each corner into the objective; (7) pick the biggest (max) or smallest (min). It works because a linear objective reaches its extreme value at a vertex &mdash; never in the middle.</p>
+
+    <h3>The method &mdash; simplex (more than two variables)</h3>
+    <p>When you can't graph, simplex hops from corner to corner systematically. Set up by turning each <span class="m">&le;</span> constraint into an equation with a <b>slack variable</b>, and write the objective as a bottom row. Then loop: pick the <b>pivot column</b> (most negative entry in the objective row), pick the <b>pivot row</b> (smallest nonnegative ratio of RHS &divide; that column's entry), <b>pivot</b> (make the pivot a 1 and clear its column), and repeat until the objective row has no negatives left.</p>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; graphical maximization</div>
+    <p>Maximize <span class="m">P = 3x + 4y</span> subject to <span class="m">x + y &le; 4</span>, <span class="m">x + 3y &le; 6</span>, <span class="m">x, y &ge; 0</span>.</p>
+    <p class="step-note">Corner points: <span class="m">(0,0)</span>; on the x-axis <span class="m">x+y=4 &rarr; (4,0)</span>; on the y-axis <span class="m">x+3y=6 &rarr; (0,2)</span>; and where the two lines cross &mdash; subtract them: <span class="m">2y = 2 &rarr; y=1, x=3 &rarr; (3,1)</span>.</p>
+    <p class="step-note">Evaluate P at each: <span class="m">(0,0)&rarr;0</span>, <span class="m">(4,0)&rarr;12</span>, <span class="m">(0,2)&rarr;8</span>, <span class="m">(3,1)&rarr;13</span>.</p>
+    <p>Maximum is <b>P = 13 at (3, 1)</b>.</p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; graphical minimization (&ge; constraints)</div>
+    <p>Minimize <span class="m">C = 2x + 3y</span> subject to <span class="m">x + y &ge; 8</span>, <span class="m">2x + y &ge; 10</span>, <span class="m">x, y &ge; 0</span>.</p>
+    <p class="step-note">Corner points of this region: <span class="m">(0,10)</span> on the y-axis; where the two lines cross &mdash; subtract: <span class="m">x = 2, y = 6 &rarr; (2,6)</span>; and <span class="m">(8,0)</span> on the x-axis.</p>
+    <p class="step-note">Evaluate C: <span class="m">(0,10)&rarr;30</span>, <span class="m">(2,6)&rarr;22</span>, <span class="m">(8,0)&rarr;16</span>.</p>
+    <p>Minimum is <b>C = 16 at (8, 0)</b>. (With "&ge;" the region opens upward, but the minimum still sits at a corner.)</p></div>
+    <div class="example"><div class="lbl">Example 3 &middot; simplex, same problem as Example 1</div>
+    <p>Add slack variables: <span class="m">x + y + s&#8321; = 4</span>, <span class="m">x + 3y + s&#8322; = 6</span>, objective row <span class="m">P &minus; 3x &minus; 4y = 0</span>.</p>
     <table class="tab">
-      <tr><th>x</th><th>y</th><th>s₁</th><th>s₂</th><th>P</th><th>RHS</th></tr>
+      <tr><th>x</th><th>y</th><th>s&#8321;</th><th>s&#8322;</th><th>P</th><th>RHS</th></tr>
       <tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>4</td></tr>
       <tr><td>1</td><td class="piv">3</td><td>0</td><td>1</td><td>0</td><td>6</td></tr>
-      <tr class="obj"><td>−3</td><td>−4</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+      <tr class="obj"><td>&minus;3</td><td>&minus;4</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
     </table>
-    <p><b>Pivot rule:</b> most-negative entry in the objective row picks the column (−4 → y). The <b>ratio test</b> (RHS ÷ positive column entry, smallest wins) picks the row: 4/1 = 4 vs 6/3 = 2, so row 2. Pivot on the 3, clear the column. Repeat: next pivot is the x-column, ratio test gives row 1. After that the objective row has no negatives left — optimal.</p>
-    <p>Result: <b>P = 13 at x = 3, y = 1</b> — same answer the graph gave, which is the reassuring check.</p></div>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>For graphical, the make-or-break is plotting constraints correctly and finding the corner coordinates (often by solving two equations simultaneously — ties back to Unit 2). For "which side to shade," test the origin: if it satisfies the inequality, shade toward it. For simplex, she doesn't need the theory — she needs the <b>loop</b>: pick column (most negative), pick row (ratio test), pivot, repeat until no negatives. Doing two full problems by hand makes it muscle memory; that's what the exam rewards.</p></div>
-    <a class="top" href="#u1">↑ top</a>
+    <p class="step-note">Pivot column = y (most negative, &minus;4). Ratio test: <span class="m">4/1 = 4</span> vs <span class="m">6/3 = 2</span> &rarr; pivot on the <b>3</b> in row 2. Make it a 1 and clear the column.</p>
+    <table class="tab">
+      <tr><th>x</th><th>y</th><th>s&#8321;</th><th>s&#8322;</th><th>P</th><th>RHS</th></tr>
+      <tr><td class="piv">2/3</td><td>0</td><td>1</td><td>&minus;1/3</td><td>0</td><td>2</td></tr>
+      <tr><td>1/3</td><td>1</td><td>0</td><td>1/3</td><td>0</td><td>2</td></tr>
+      <tr class="obj"><td>&minus;5/3</td><td>0</td><td>0</td><td>4/3</td><td>1</td><td>8</td></tr>
+    </table>
+    <p class="step-note">Still a negative (&minus;5/3) in the x column. Ratio test: <span class="m">2 &divide; (2/3) = 3</span> vs <span class="m">2 &divide; (1/3) = 6</span> &rarr; pivot on row 1. Clear the column.</p>
+    <p>No negatives remain in the objective row, so it's optimal: <b>x = 3, y = 1, P = 13</b> &mdash; matching the graph exactly.</p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Shading the wrong side &mdash; skipping the origin test, or being thrown when the origin sits on the line.</li>
+      <li>Reading a corner's coordinates off the graph instead of solving the two lines exactly.</li>
+      <li>Forgetting to test <b>every</b> corner (the max often hides at the least obvious one).</li>
+      <li>Mixing up maximize vs minimize.</li>
+      <li>Simplex: not choosing the most-negative column, or doing the ratio test with negative entries, or an arithmetic slip in the pivot.</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Make the graphical method <b>visual and physical</b>: graph big, color in the feasible region, literally circle each corner, and build a little two-column table of corner &rarr; objective value. That table is the anti-anxiety device &mdash; it turns a scary problem into "just fill in the rows." Drill the origin test as a simple yes/no. For simplex, don't teach the theory; teach the four-step loop as a <b>recipe she repeats</b> &mdash; pick column, pick row, pivot, check for negatives. Work two full problems with her, then have her narrate the steps with no help. The confidence-builder: solve one two-variable problem both ways and watch the answers match.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U4 -->
+  <!-- ============ U4 ============ -->
   <section id="u4">
     <div class="secnum">Unit 4</div>
     <h2>Sets &amp; Counting</h2>
-    <div class="secmap">Barnett §7.2–7.4 · sets, Venn diagrams, multiplication principle, permutations &amp; combinations</div>
+    <div class="secmap">Barnett &sect;7.2&ndash;7.4 &middot; sets, Venn diagrams, multiplication principle, permutations &amp; combinations</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
-      <li>Set notation: <span class="m">∈</span> in · <span class="m">⊆</span> subset · <span class="m">∪</span> or · <span class="m">∩</span> and · <span class="m">A′</span> not · <span class="m">∅</span> empty · <span class="m">U</span> universal.</li>
+      <li>Set notation: <span class="m">&isin;</span> in &middot; <span class="m">&sube;</span> subset &middot; <span class="m">&cup;</span> or &middot; <span class="m">&cap;</span> and &middot; <span class="m">A&prime;</span> not &middot; <span class="m">&empty;</span> empty &middot; <span class="m">U</span> universal.</li>
       <li><span class="m">|A|</span> = cardinality (count of elements).</li>
-      <li>Factorial: <span class="m">n! = n·(n−1)···2·1</span>, with <span class="m">0! = 1</span>.</li>
-      <li>Multiplication principle: independent choices multiply (m ways, then n ways → <span class="m">m·n</span>).</li>
+      <li>Factorial: <span class="m">n! = n&middot;(n&minus;1)&middot;&middot;&middot;2&middot;1</span>, with <span class="m">0! = 1</span>.</li>
+      <li>Multiplication principle: independent choices multiply (m ways, then n ways &rarr; <span class="m">m&middot;n</span>).</li>
     </ul></div>
-    <p>Set basics (union, intersection, complement, cardinality) plus counting. The one formula students forget is inclusion-exclusion; the one distinction they blur is permutations vs combinations.</p>
-    <div class="formula">|A ∪ B| = |A| + |B| − |A ∩ B|   ·   P(n,k) = n!/(n−k)!   ·   C(n,k) = n!/[k!(n−k)!]</div>
-    <p>Permutations count <b>ordered</b> arrangements; combinations count <b>unordered</b> selections. The multiplication principle underlies both: independent choices multiply. A set of n elements has <span class="m">2ⁿ</span> subsets.</p>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>Give her one question to ask every counting problem: <i>"Does order matter?"</i> A committee of 3 (order doesn't matter) → combination; a president-VP-treasurer slate (order matters) → permutation. For Venn problems, fill in the <b>intersection first</b>, then work outward so regions aren't double-counted — that's exactly what inclusion-exclusion is doing algebraically.</p></div>
-    <a class="top" href="#u1">↑ top</a>
+
+    <h3>The method</h3>
+    <p><b>Sets and unions.</b> Union (<span class="m">&cup;</span>, "or"), intersection (<span class="m">&cap;</span>, "and"), and complement (<span class="m">A&prime;</span>, "not"). To count a union without double-counting the overlap, use inclusion-exclusion: <span class="m">|A &cup; B| = |A| + |B| &minus; |A &cap; B|</span>.</p>
+    <p><b>The multiplication principle</b> is the engine of counting: if one choice has m options and a following independent choice has n options, there are <span class="m">m&middot;n</span> combined outcomes.</p>
+    <p><b>Permutations vs combinations</b> &mdash; the entire unit hinges on this one distinction. A <b>permutation</b> counts <i>ordered</i> arrangements: <span class="m">P(n,k) = n!/(n&minus;k)!</span>. A <b>combination</b> counts <i>unordered</i> selections: <span class="m">C(n,k) = n!/[k!(n&minus;k)!]</span>. The deciding question is always: <i>does the order matter?</i></p>
+    <div class="formula">|A &cup; B| = |A| + |B| &minus; |A &cap; B|   &middot;   P(n,k) = n!/(n&minus;k)!   &middot;   C(n,k) = n!/[k!(n&minus;k)!]</div>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; inclusion-exclusion in context</div>
+    <p>In a class of 30, 18 take Spanish, 15 take French, and 7 take both. How many take at least one language? How many take neither?</p>
+    <p class="step-note">At least one: <span class="m">|S &cup; F| = 18 + 15 &minus; 7 = 26</span></p>
+    <p class="step-note">Neither: <span class="m">30 &minus; 26 = 4</span></p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; permutation (order matters)</div>
+    <p>How many ways to award gold, silver, and bronze among 8 runners?</p>
+    <p class="step-note">Order matters (gold &ne; bronze): <span class="m">P(8,3) = 8&middot;7&middot;6 = 336</span></p></div>
+    <div class="example"><div class="lbl">Example 3 &middot; combination (order doesn't matter)</div>
+    <p>How many different 5-card hands can be dealt from a 52-card deck?</p>
+    <p class="step-note">A hand is unordered: <span class="m">C(52,5) = (52&middot;51&middot;50&middot;49&middot;48)/(5&middot;4&middot;3&middot;2&middot;1) = 2,598,960</span></p></div>
+    <div class="example"><div class="lbl">Example 4 &middot; multiplication principle + a combination</div>
+    <p>A pizza is built from 1 of 3 crusts, 1 of 4 sauces, and any 2 of 6 toppings. How many possible pizzas?</p>
+    <p class="step-note">Multiply the independent choices: <span class="m">3 &times; 4 &times; C(6,2) = 3 &times; 4 &times; 15 = 180</span></p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Using a permutation when it should be a combination (or vice versa) &mdash; almost always an order-question mistake.</li>
+      <li>Forgetting to subtract the intersection in a union (double-counting the overlap).</li>
+      <li>Confusing "and" (multiply within one outcome) with separate cases (add the cases).</li>
+      <li>Mis-canceling factorials when simplifying <span class="m">C(n,k)</span>.</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Hand her one question to ask every counting problem: <i>"If I rearrange the chosen items, is it a different outcome?"</i> Yes &rarr; permutation; No &rarr; combination. Drill it with five quick scenarios (a committee, a podium, a lock code, a lottery, a starting lineup) until the sort is instant. For Venn problems, always fill the <b>center first</b> (the intersection) and work outward &mdash; that's inclusion-exclusion made visual. For multi-step counts, have her draw a slot for each choice, write the number of options in each slot, and multiply. And to make a factorial click, have her list out all 6 arrangements of three items by hand so <span class="m">3! = 6</span> stops being abstract.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U5 -->
+  <!-- ============ U5 ============ -->
   <section id="u5">
     <div class="secnum">Unit 5</div>
     <h2>Probability</h2>
-    <div class="secmap">Barnett §8.1–8.3 · sample spaces, addition rule, conditional probability, independence</div>
+    <div class="secmap">Barnett &sect;8.1&ndash;8.3 &middot; sample spaces, addition rule, conditional probability, independence</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
-      <li><span class="m">P(event) = favorable / total</span> for equally likely outcomes, and <span class="m">0 ≤ P ≤ 1</span>.</li>
+      <li><span class="m">P(event) = favorable / total</span> for equally likely outcomes, and <span class="m">0 &le; P &le; 1</span>.</li>
       <li>Sample space = the set of all possible outcomes.</li>
-      <li>Complement: <span class="m">P(not A) = 1 − P(A)</span>.</li>
+      <li>Complement: <span class="m">P(not A) = 1 &minus; P(A)</span>.</li>
       <li>Fluency moving between fractions, decimals, and percents.</li>
     </ul></div>
-    <p>Standard discrete probability. The three load-bearing rules:</p>
-    <div class="formula">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)   ·   P(A | B) = P(A ∩ B) / P(B)   ·   independent: P(A ∩ B) = P(A)·P(B)</div>
-    <p>The course leans on <b>tree diagrams</b> for multi-stage experiments and conditional probability. Odds-to-probability shows up too: odds <span class="m">a:b</span> in favor means probability <span class="m">a/(a+b)</span>.</p>
-    <div class="example"><div class="lbl">Worked example · tree / conditional</div>
-    <p>Machine A makes 60% of parts (2% defective); Machine B makes 40% (5% defective). Probability a random part is defective?</p>
-    <p><span class="m">P(def) = 0.60·0.02 + 0.40·0.05 = 0.012 + 0.020 = 0.032</span></p>
-    <p>And if a part <i>is</i> defective, the probability it came from A: <span class="m">P(A | def) = 0.012 / 0.032 = 0.375</span>.</p></div>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>The big trap is "and" vs "or": "or" adds (and subtracts the overlap), "and" multiplies (for independent events). When in doubt, draw the tree — branch probabilities multiply along a path, and you add across the paths that satisfy the event. Conditional probability is just "shrink the world to B, then ask about A."</p></div>
-    <a class="top" href="#u1">↑ top</a>
+
+    <h3>The method</h3>
+    <p><b>Single events</b> use favorable-over-total. The <b>complement rule</b> (<span class="m">1 &minus; P(A)</span>) is a workhorse, especially for "at least one." The <b>addition rule</b> handles "or": <span class="m">P(A &cup; B) = P(A) + P(B) &minus; P(A &cap; B)</span> &mdash; subtract the overlap so it isn't counted twice (for mutually exclusive events there's no overlap). "And" <b>multiplies</b>: independent events give <span class="m">P(A)&middot;P(B)</span>; dependent events need conditional probability, <span class="m">P(A | B) = P(A &cap; B)/P(B)</span> &mdash; read as "given B happened, restrict the world to B." Multi-stage problems are cleanest as a <b>tree</b>: multiply along each branch, add across the paths that satisfy the event.</p>
+    <div class="formula">P(A &cup; B) = P(A) + P(B) &minus; P(A &cap; B)   &middot;   P(A | B) = P(A &cap; B) / P(B)   &middot;   independent: P(A &cap; B) = P(A)&middot;P(B)</div>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; addition rule with overlap</div>
+    <p>Draw one card from 52. Find P(king <b>or</b> heart).</p>
+    <p class="step-note"><span class="m">P(K) = 4/52</span>, <span class="m">P(heart) = 13/52</span>, overlap (king of hearts) <span class="m">= 1/52</span></p>
+    <p class="step-note"><span class="m">P(K &cup; heart) = (4 + 13 &minus; 1)/52 = 16/52 = 4/13</span></p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; "at least one" via the complement</div>
+    <p>Roll a die three times. Find P(at least one 6).</p>
+    <p class="step-note">Easier to find the opposite: <span class="m">P(no 6) = (5/6)&#179; = 125/216</span></p>
+    <p class="step-note"><span class="m">P(at least one 6) = 1 &minus; 125/216 = 91/216 &asymp; 0.421</span></p></div>
+    <div class="example"><div class="lbl">Example 3 &middot; dependent draws (a tree)</div>
+    <p>A bag has 3 red and 2 blue marbles. Draw 2 without replacing. Find P(both red).</p>
+    <p class="step-note">First red: <span class="m">3/5</span>. Now 2 red of 4 remain, so second red: <span class="m">2/4</span>.</p>
+    <p class="step-note">Multiply along the branch: <span class="m">(3/5)(2/4) = 6/20 = 3/10</span></p></div>
+    <div class="example"><div class="lbl">Example 4 &middot; conditional probability (a tree forward and back)</div>
+    <p>Machine A makes 60% of parts (2% defective); Machine B makes 40% (5% defective). Find the probability a random part is defective, and &mdash; if it is &mdash; that it came from A.</p>
+    <p class="step-note"><span class="m">P(def) = 0.60&middot;0.02 + 0.40&middot;0.05 = 0.012 + 0.020 = 0.032</span></p>
+    <p class="step-note"><span class="m">P(A | def) = 0.012 / 0.032 = 0.375</span></p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Adding when she should multiply, or vice versa &mdash; the "or" vs "and" mix-up.</li>
+      <li>Forgetting to subtract the overlap in an "or" problem.</li>
+      <li>Treating dependent draws as independent (not updating the counts after the first draw).</li>
+      <li>Flipping the conditional: confusing <span class="m">P(A | B)</span> with <span class="m">P(B | A)</span>.</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Give her two trigger words: <b>"or" means add</b> (then subtract the overlap), <b>"and"/"then" means multiply</b>. Make the complement trick her default for any "at least one" problem &mdash; it's almost always faster. For anything with multiple stages, draw the tree: branch probabilities multiply, separate paths add. For conditional probability, have her say it aloud &mdash; <i>"given B happened, the world is now just B"</i> &mdash; and use real objects (cards, marbles) so the counts are visible, not abstract.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U6 -->
+  <!-- ============ U6 ============ -->
   <section id="u6">
     <div class="secnum">Unit 6</div>
     <h2>Expected Value</h2>
-    <div class="secmap">Barnett §8.5 · expected value of a random variable</div>
+    <div class="secmap">Barnett &sect;8.5 &middot; expected value of a random variable</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
       <li>Weighted average: multiply each value by its weight, then add the products.</li>
-      <li><span class="m">Σ</span> (sigma) means "sum all the terms."</li>
-      <li>The weights here are probabilities — they must cover all outcomes and sum to 1.</li>
+      <li><span class="m">&Sigma;</span> (sigma) means "sum all the terms."</li>
+      <li>The weights here are probabilities &mdash; they must cover all outcomes and sum to 1.</li>
     </ul></div>
-    <p>A weighted average of outcomes by their probabilities. Conceptually trivial for you; the application framing (is a game/bet fair?) is the point.</p>
-    <div class="formula">E(X) = Σ xᵢ · P(xᵢ)     ·     fair game ⇔ E(X) = 0</div>
-    <div class="example"><div class="lbl">Worked example</div>
-    <p>Win $10 with probability 0.2, lose $3 with probability 0.8:</p>
-    <p><span class="m">E(X) = (0.2)(10) + (0.8)(−3) = 2 − 2.4 = −$0.40</span> per play — a losing game in the long run.</p></div>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>Two reminders: losses are <b>negative</b> values (sign errors are the #1 mistake), and the probabilities must cover every outcome and sum to 1. Frame the answer as "average per play over many plays," which makes a negative expected value feel concrete.</p></div>
-    <a class="top" href="#u1">↑ top</a>
+
+    <h3>The method</h3>
+    <p>Expected value is a probability-weighted average: <span class="m">E(X) = &Sigma; x&#7522; &middot; P(x&#7522;)</span>. The reliable way to compute it is a <b>three-column table</b> &mdash; outcomes, their probabilities, and the product of the two &mdash; then sum the product column. It represents the long-run average per trial. A game is <b>fair</b> when <span class="m">E = 0</span>; decisions compare expected values across options. Two things to watch: losses are <b>negative</b> values, and the probabilities must account for every outcome (they sum to 1).</p>
+    <div class="formula">E(X) = &Sigma; x&#7522; &middot; P(x&#7522;)     &middot;     fair game &hArr; E(X) = 0</div>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; the table method</div>
+    <p>A raffle sells 500 tickets. Prizes: one $200 and three $50. Find the expected winnings of a single ticket.</p>
+    <p class="step-note"><span class="m">E = (1/500)(200) + (3/500)(50) + (496/500)(0)</span></p>
+    <p class="step-note"><span class="m">= (200 + 150)/500 = 350/500 = $0.70</span>. If the ticket costs $2, the expected <b>net</b> is <span class="m">0.70 &minus; 2 = &minus;$1.30</span>.</p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; a simple game</div>
+    <p>Roll a die: win $6 if you roll a 6, otherwise lose $1. Find the expected value.</p>
+    <p class="step-note"><span class="m">E = (1/6)(6) + (5/6)(&minus;1) = 1 &minus; 5/6 = 1/6 &asymp; +$0.17</span> &mdash; slightly favorable to the player.</p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Leaving out an outcome, so the probabilities don't sum to 1.</li>
+      <li>Sign errors &mdash; entering a loss as positive.</li>
+      <li>Confusing expected <b>winnings</b> with expected <b>net</b> (forgetting to subtract the cost to play).</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Insist on the three-column table every time (outcome, probability, product) &mdash; the structure itself prevents most errors. Before multiplying, have her confirm the probability column sums to 1. Frame the result as "the average if you played this thousands of times," which makes a negative expected value concrete and intuitive. And explicitly separate the two questions she'll be asked: expected winnings versus expected net after the cost to play.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U7 -->
+  <!-- ============ U7 ============ -->
   <section id="u7">
     <div class="secnum">Unit 7</div>
     <h2>Markov Chains</h2>
-    <div class="secmap">Barnett §9.1–9.2 · transition matrices, state vectors, steady state</div>
+    <div class="secmap">Barnett &sect;9.1&ndash;9.2 &middot; transition matrices, state vectors, steady state</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
       <li>Probability vector: nonnegative entries that sum to 1.</li>
-      <li>Row vector × matrix: <span class="m">[a b]·P</span> combines the row entries with each column — a 1×n times n×n gives 1×n.</li>
-      <li>Matrix power <span class="m">Pⁿ</span> = P multiplied by itself n times (n-step transitions).</li>
+      <li>Row vector &times; matrix: <span class="m">[a b]&middot;P</span> combines the row entries with each column &mdash; a 1&times;n times n&times;n gives 1&times;n.</li>
+      <li>Matrix power <span class="m">P&#8319;</span> = P multiplied by itself n times (n-step transitions).</li>
     </ul></div>
-    <p>This is the topic most likely to feel unfamiliar even to an engineer. A <b>transition matrix</b> P has rows that each sum to 1 (the probabilities of moving from one state to all states). Multiply a state vector by P to step forward: <span class="m">Sₙ₊₁ = Sₙ·P</span>. A <b>regular</b> chain (some power of P has all-positive entries) converges to a unique <b>steady-state</b> vector π, regardless of where you start.</p>
-    <p>Finding π is the key technique: solve <span class="m">π·P = π</span> together with "entries sum to 1."</p>
-    <div class="example"><div class="lbl">Worked example · steady state</div>
-    <p>P = <span class="mtx" style="grid-template-columns:repeat(2,auto)"><span>0.8</span><span>0.2</span><span>0.3</span><span>0.7</span></span>. Let π = [a, 1−a]. The first component of π·P = π gives:</p>
-    <p><span class="m">0.8a + 0.3(1−a) = a → 0.5a + 0.3 = a → a = 0.6</span></p>
-    <p>So <b>π = [0.6, 0.4]</b>. (Check: [0.6, 0.4]·P = [0.6, 0.4] ✓.)</p></div>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>Anchor it with a story — weather (sunny/rainy), or customers switching between two brands. "Where does it settle long-term, no matter today's weather?" is the steady state. Mechanically, the two things she must not forget: <b>row vector times matrix</b> (state on the left), and rows of P sum to 1. The steady-state solve is just a small system of equations — back to Unit 2 again.</p></div>
-    <a class="top" href="#u1">↑ top</a>
+
+    <h3>The method</h3>
+    <p>A system moves between <b>states</b> with fixed probabilities collected in a <b>transition matrix</b> <span class="m">P</span> &mdash; each row sums to 1, and entry (i, j) is the probability of moving from state i to state j. The current situation is a <b>state vector</b> <span class="m">S</span> (a row). Step forward by multiplying on the right: <span class="m">S&#8321; = S&#8320;&middot;P</span>, and n steps out is <span class="m">S&#8320;&middot;P&#8319;</span>. If the chain is <b>regular</b>, it settles into a unique <b>steady-state</b> vector <span class="m">&pi;</span> no matter where it began. You find <span class="m">&pi;</span> by solving <span class="m">&pi;P = &pi;</span> together with the condition that its entries sum to 1 &mdash; for two states, that's just one small equation.</p>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; stepping forward</div>
+    <p>Weather: states Sunny and Rainy, with <span class="m">P = [[0.7, 0.3],[0.4, 0.6]]</span> (row = today, column = tomorrow). It's sunny today, so <span class="m">S&#8320; = [1, 0]</span>.</p>
+    <p class="step-note">Tomorrow: <span class="m">S&#8321; = [1&middot;0.7 + 0&middot;0.4, &nbsp; 1&middot;0.3 + 0&middot;0.6] = [0.7, 0.3]</span></p>
+    <p class="step-note">Day after: <span class="m">S&#8322; = S&#8321;&middot;P = [0.7&middot;0.7 + 0.3&middot;0.4, &nbsp; 0.7&middot;0.3 + 0.3&middot;0.6] = [0.61, 0.39]</span></p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; steady state</div>
+    <p>For the same <span class="m">P</span>, find the long-run fraction of sunny days. Let <span class="m">&pi; = [a, 1&minus;a]</span> and use the first component of <span class="m">&pi;P = &pi;</span>:</p>
+    <p class="step-note"><span class="m">0.7a + 0.4(1&minus;a) = a &rarr; 0.3a + 0.4 = a &rarr; 0.4 = 0.7a &rarr; a = 4/7</span></p>
+    <p class="step-note">So <span class="m">&pi; = [4/7, 3/7] &asymp; [0.571, 0.429]</span>. Check: <span class="m">(4/7)(0.7)+(3/7)(0.4) = 4/7</span> &#10003;</p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Multiplying matrix &times; vector instead of <b>vector &times; matrix</b> (wrong orientation).</li>
+      <li>Building a transition matrix whose rows don't sum to 1.</li>
+      <li>Forgetting the "sum to 1" equation when solving for the steady state.</li>
+      <li>Algebra slips in the steady-state equation.</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Anchor the whole topic in a concrete story &mdash; weather, or customers switching between two coffee shops &mdash; so the matrix means something. Drill the row-vector-times-matrix multiplication slowly, by hand, several times, because the orientation is the part she'll get wrong. Then frame steady state as the natural question: <i>"where does it settle in the long run, regardless of how it started?"</i> The solve itself is just a small system of equations, so it ties straight back to Unit 2. Always finish by plugging <span class="m">&pi;</span> back into <span class="m">&pi;P</span> as a sanity check.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
-  <!-- U8 -->
+  <!-- ============ U8 ============ -->
   <section id="u8">
     <div class="secnum">Unit 8</div>
     <h2>Bernoulli &amp; Binomial</h2>
-    <div class="secmap">Barnett §10.4 · Bernoulli trials, the binomial distribution</div>
+    <div class="secmap">Barnett &sect;10.4 &middot; Bernoulli trials, the binomial distribution</div>
     <div class="found"><div class="lbl">Foundations</div><ul>
       <li>Combinations <span class="m">C(n,k)</span> = ways to choose k of n, order ignored (Unit 4).</li>
-      <li>Exponents: <span class="m">pᵏ</span> = p multiplied k times; <span class="m">p⁰ = 1</span>.</li>
-      <li>Independent events multiply; complementary probabilities p and 1−p sum to 1.</li>
+      <li>Exponents: <span class="m">p&#7503;</span> = p multiplied k times; <span class="m">p&#8304; = 1</span>.</li>
+      <li>Independent events multiply; complementary probabilities p and 1&minus;p sum to 1.</li>
     </ul></div>
-    <p>A <b>Bernoulli trial</b> is a single success/failure experiment with fixed probability p. The <b>binomial distribution</b> counts successes over n independent trials:</p>
-    <div class="formula">P(X = k) = C(n,k) · pᵏ · (1−p)ⁿ⁻ᵏ     ·     mean = n·p</div>
-    <p>The three ingredients are the count of arrangements <span class="m">C(n,k)</span> (ties back to Unit 4), the successes <span class="m">pᵏ</span>, and the failures <span class="m">(1−p)ⁿ⁻ᵏ</span>. For "at least one," it's almost always faster to use the complement: <span class="m">1 − P(none)</span>.</p>
-    <div class="example"><div class="lbl">Worked example</div>
-    <p>Five fair coin flips, probability of exactly 2 heads:</p>
-    <p><span class="m">C(5,2)·(0.5)²·(0.5)³ = 10 · (1/32) = 0.3125</span></p></div>
-    <div class="teach"><div class="lbl">Teaching Camila</div>
-    <p>Make sure she sees the three pieces of the formula and why each is there — the <span class="m">C(n,k)</span> is "how many ways the k successes can be placed among n trials." For "at least one," steer her to the complement trick before she tries to add up many cases. The expected number of successes is just <span class="m">np</span>.</p></div>
-    <a class="top" href="#u1">↑ top</a>
+
+    <h3>The method</h3>
+    <p>A <b>Bernoulli trial</b> is one success/failure experiment with a fixed probability p. A <b>binomial</b> setting is n of those: a fixed number of independent trials, the same p each time, counting total successes. The probability of exactly k successes is <span class="m">P(X = k) = C(n,k) &middot; p&#7503; &middot; (1&minus;p)&#8319;&#8315;&#7503;</span> &mdash; three pieces: <b>how many arrangements</b> (the <span class="m">C</span>), the <b>successes</b> (<span class="m">p&#7503;</span>), and the <b>failures</b> (<span class="m">(1&minus;p)&#8319;&#8315;&#7503;</span>). The expected number of successes is simply <span class="m">np</span>, and for "at least one" it's almost always faster to use the complement, <span class="m">1 &minus; P(none)</span>.</p>
+    <div class="formula">P(X = k) = C(n,k) &middot; p&#7503; &middot; (1&minus;p)&#8319;&#8315;&#7503;     &middot;     mean = n&middot;p</div>
+
+    <h3>Worked examples</h3>
+    <div class="example"><div class="lbl">Example 1 &middot; exactly k successes</div>
+    <p>A free-throw shooter makes 70% (<span class="m">p = 0.7</span>). In 5 attempts, find P(exactly 4 made).</p>
+    <p class="step-note"><span class="m">C(5,4)&middot;(0.7)&#8308;&middot;(0.3)&#185; = 5 &middot; 0.2401 &middot; 0.3 = 0.360</span></p></div>
+    <div class="example"><div class="lbl">Example 2 &middot; "at least one" via complement</div>
+    <p>A student guesses 4 true/false questions (<span class="m">p = 0.5</span>). Find P(at least one correct).</p>
+    <p class="step-note"><span class="m">1 &minus; (0.5)&#8308; = 1 &minus; 0.0625 = 0.9375</span></p></div>
+    <div class="example"><div class="lbl">Example 3 &middot; mean plus a probability</div>
+    <p>Items are 5% defective (<span class="m">p = 0.05</span>). In a box of 20, how many defects are expected, and what's P(none defective)?</p>
+    <p class="step-note">Expected defects: <span class="m">np = 20 &times; 0.05 = 1</span></p>
+    <p class="step-note">None defective: <span class="m">(0.95)&#178;&#8304; &asymp; 0.358</span></p></div>
+    <div class="example"><div class="lbl">Example 4 &middot; exactly k, with dice</div>
+    <p>Roll a die 4 times. Find P(exactly two 6s), where <span class="m">p = 1/6</span>.</p>
+    <p class="step-note"><span class="m">C(4,2)&middot;(1/6)&#178;&middot;(5/6)&#178; = 6 &middot; (1/36) &middot; (25/36) = 150/1296 &asymp; 0.116</span></p></div>
+
+    <div class="mistakes"><div class="lbl">Where Camila will trip</div><ul>
+      <li>Dropping the <span class="m">C(n,k)</span> factor &mdash; computing just <span class="m">p&#7503;</span> and forgetting the arrangements.</li>
+      <li>Wrong exponents: it's k successes and <span class="m">n&minus;k</span> failures.</li>
+      <li>Using the binomial when the trials aren't independent or p changes between them.</li>
+      <li>Summing many cases for "at least one" instead of using the complement.</li>
+    </ul></div>
+
+    <div class="teach"><div class="lbl">How to teach it</div>
+    <p>Have her name the three pieces out loud every time: <i>"how many ways (the C), the success power, the failure power."</i> Make the complement the automatic move for "at least one." The mean <span class="m">np</span> is the intuitive anchor &mdash; "70% of 5 shots is about 3.5 made," so getting 4 is plausible. To make the distribution feel real, build a small table of <span class="m">P(X = 0), P(X = 1), P(X = 2)&hellip;</span> and notice it adds to 1.</p></div>
+    <a class="top" href="#u1">&uarr; top</a>
   </section>
 
+  <div class="closing">
+    <h3>The one thread that ties it together</h3>
+    <p>Three of the eight units &mdash; matrices (2), linear programming (3), and Markov chains (7) &mdash; all come down to <b>solving systems of equations by hand</b>. If you get Camila genuinely fluent at that one skill early, those three units stop feeling like separate mountains and start feeling like the same move in different clothes. It's the highest-leverage thing to drill.</p>
+    <p>Work in the order of the course (Units 1&ndash;3 first for the midterm), teach one method at a time, and after each unit send her to that unit in the <b>Practice Studio</b> so the repetition and worked solutions lock it in. Small wins, checked by substitution, build the confidence that carries the rest.</p>
+  </div>
+
   <footer>
-    Pairs with the Command Center (deadlines &amp; grades) and Practice Studio (99 problems).<br>
+    Pairs with the Command Center (deadlines &amp; grades) and Practice Studio (130+ problems).<br>
     Section numbers follow Barnett, <i>Finite Mathematics</i>, 14th ed.
   </footer>
 </div>
